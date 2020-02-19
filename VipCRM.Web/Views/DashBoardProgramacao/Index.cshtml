@@ -1,0 +1,36 @@
+﻿@model ICollection<VipCRM.Application.MVC.ViewModels.ResultOcorrenciaProgramacaoViewModel>
+
+@using VipCRM.Web.Infrastructure
+@{
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    ViewBag.Title = "";
+
+}
+<!--<meta http-equiv="refresh" content="80" />-->
+<div ng-controller="ProgramacarCtrl">
+    
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+
+        <!-- Main row -->
+        <div class="row">
+            <!-- Left col -->
+            <section class="col-lg-7 connectedSortable">
+
+                @Html.Partial("_AdminRoteiro")
+
+
+                <!-- BAR CHART -->
+
+
+            </section><!-- /.Left col -->
+            <!-- right col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col-lg-5 connectedSortable">
+
+                <!--Html.Partial("_Alertas")-->
+
+            </section><!-- right col -->
+        </div><!-- /.row (main row) -->
+    </section><!-- /.content -->
+
+</div>

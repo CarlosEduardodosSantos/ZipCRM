@@ -1,0 +1,97 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    ViewBag.Title = "";
+
+}
+
+<!--<meta http-equiv="refresh" content="80" />-->
+<div ng-controller="OrcamentoAdminController">
+
+    <section class="content">
+
+        <div class="row margin">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>
+                            R$ 200,00 <sup style="font-size: 20px"></sup> <!--totalizar.TotalVenda| currency:2}}-->
+                        </h3>
+                        <p>Faturamento<span> (Mês atual)</span></p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-fuchsia">
+                    <div class="inner">
+                        <h3>
+                            100<sup style="font-size: 20px"></sup>
+                        </h3>
+                        <p>Total de clientes<span> (Mês atual)</span></p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-happy-outline"></i>
+                    </div>
+                </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>
+                            R$ 200,00<sup style="font-size: 20px"></sup>
+                        </h3>
+                        <p>Contas a receber<span> (Mês atual)</span></p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-arrow-up-a"></i>
+                    </div>
+                </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>
+                            R$ 400,00<sup style="font-size: 20px"></sup>
+                        </h3>
+                        <p>Contas a pagar<span> (Mês atual)</span></p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-arrow-down-a"></i>
+                    </div>
+                </div>
+            </div><!-- ./col -->
+        </div>
+        <div class="row margin">
+            <section class="col-lg-6 connectedSortable">
+                @Html.Partial("_RankingVendedor")
+
+                @Html.Partial("_RankingEquipe")
+            </section>
+            <section class="col-lg-6 connectedSortable">
+                @Html.Partial("_RankingOrcamento")
+
+            </section>
+        </div>
+
+    </section>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/Scripts/app/controller/orcamentoAdminController.js"></script>
+
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="~/Content/Theme/AdminLTE/plugins/morris/morris.min.js" type="text/javascript"></script>
+
+}

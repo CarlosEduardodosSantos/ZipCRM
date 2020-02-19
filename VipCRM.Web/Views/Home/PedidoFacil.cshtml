@@ -1,0 +1,261 @@
+﻿@using VipCRM.Web.Infrastructure
+@using VipCRM.Web.Models
+@model IEnumerable<VipCRM.Web.Models.Grupo>
+@{
+    Layout = "~/Views/Shared/_VipFood.cshtml";
+}
+<br />
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="~/Content/Imagem/chamadagourme1.jpg" class="img-responsive" alt=" product image" width="1200px" height="315px" />
+            <div class="carousel-caption">
+                <h3>Laches Gourmet</h3>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Content/Imagem/chamadagourme2.jpg" class="img-responsive" alt=" product image" width="1200px" height="315px" />
+            <div class="carousel-caption">
+                <h3>Laches Gourmet</h3>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Content/Imagem/chamadagourme1.jpg" class="img-responsive" alt=" product image" width="1200px" height="315px" />
+            <div class="carousel-caption">
+                <h3>Laches Gourmet</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div> <!-- Carousel -->
+<br />
+
+<div class="alert alert-success" role="alert">
+    <h4><strong>O restaurante está fechado</strong></h4>
+    <h5>Pedido agendado está disponível.</h5>
+</div>
+
+<h3>Vamos fazer o pedido</h3>
+
+<div class="row">
+
+    <!--    <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" style="width: 25%;">
+            Processo 1 de 5
+        </div>
+    </div>-->
+
+    <div class="container2" id="myWizard">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#step1" data-toggle="tab" data-step="1">Cardápio</a></li>
+                    <li><a href="#step2" data-toggle="tab" data-step="2">Preferencias</a></li>
+                    <li><a href="#step3" data-toggle="tab" data-step="3">Complementar</a></li>
+                    <li><a href="#step4" data-toggle="tab" data-step="4">Finalizar</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-8">
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="step1">
+
+                    @foreach (var grupo in Model)
+                    {
+                        <div class="box box-primary">
+                            <a data-widget="collapse">
+                                <div class="box-header with-border">
+                                    <h3>@grupo.Nome</h3>
+                                    <div class="box-tools pull-right">
+                                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                    </div>
+                                    <img src="~/Content/Imagem/@grupo.Imagem" class="img-responsive img-center" alt=" product image" />
+                                </div><!-- /.box-header -->
+                            </a>
+                            <div class="box-body">
+                                @foreach (var produto in grupo.Produtos)
+                                {
+                                    <div class="list-group">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseItem_@produto.ProdutoId" class="list-group-item list-group-item-info">
+                                            <p><strong>@produto.Nome</strong><span class="label label-success pull-right">@produto.Valor.ToString("C2")</span></p>
+                                            <small>@produto.Descricao</small>
+                                        </a>
+                                    </div>
+
+                                    <div id="collapseItem_@produto.ProdutoId" class="panel-collapse collapse">
+
+                                        <div class="product-info">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">Escolha os opcionais</div>
+                                                <div class="panel-body">
+                                                    <h4>Complementos</h4>
+                                                    <div class="checkbox">
+                                                        @foreach (var complemento in grupo.Complemento)
+                                                        {
+                                                            <label>
+                                                                <input type="checkbox"> @complemento.Nome (@complemento.Valor.ToString("C2"))
+                                                            </label>
+                                                        }
+                                                    </div>
+                                                    <hr />
+                                                    <h4>Observações</h4>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"> Sem Cebola
+                                                        </label>
+                                                        <label>
+                                                            <input type="checkbox"> Sem Milho
+                                                        </label>
+                                                        <label>
+                                                            <input type="checkbox"> Sem Ervilha
+                                                        </label>
+                                                    </div>
+                                                    <textarea class="form-control" rows="3"></textarea>
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-success btn-flat">Escolher essa</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                    </div>
+                                }
+                            </div><!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    }
+
+                    <a class="btn btn-default next" href="#">Continue</a>
+
+                </div>
+                <div class="tab-pane fade" id="step2">
+                    <div class="well">
+                        <h4>Escolha o tipo pão.</h4>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                Hamburger
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                Frances normal
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                                Frances redondo
+                            </label>
+                        </div>
+                    </div>
+                    <a class="btn btn-default btn-lg next" href="#">Continue</a>
+                </div>
+                <div class="tab-pane fade" id="step3">
+                    <div class="well">
+                        <h2>Passo 3</h2> Colocar aqui talvez alguma coisa que complementa o lanche/pizza tipo refri ou batata
+                    </div>
+                    <a class="btn btn-default next" href="#">Continue</a>
+                </div>
+                <div class="tab-pane fade" id="step4">
+                    <div class="well">
+                        <h2>Passo 4 Aqui vai a checagem dos itens</h2> Finalmente, agora é so esperar um pouco que sua pizza ja vai chegar.
+                    </div>
+                    <a class="btn btn-success first" href="#">Inicio</a>
+                </div>
+                <br />
+            </div>
+        </div>
+
+    </div>
+
+    <div id="vipcart"  class="col-xs-6 col-md-4">
+        <div class="box box-solid box-success">
+            <div class="box-header">
+                <h3 class="box-title">Seu pedido (Estação do Hamburger)</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <div class="overlay">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+                Tempo estimado de entrega: 70 min
+                <br/>
+                <br/>
+                <br/>
+
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success btn-flat">Finalizar pedido</button>
+                    <button type="button" class="btn btn-success btn-flat">Cancelar</button>
+                </span>
+            </div><!-- /.box -->
+
+        </div>
+        <h2>Final</h2>
+    </div>
+
+</div>
+@section Scripts
+{
+    <script src="http://cdn.imnjb.me/libs/jquery.scrolltofixed/0.1/jquery-scrolltofixed.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('ul.tabs').tabs();
+        });
+
+        //$('#vipcart').scrollToFixed();
+        $('#vipcart').scrollToFixed({ marginTop: 0, limit: $($('h2')).offset().top });
+
+        $('.next').click(function () {
+
+            var nextId = $(this).parents('.tab-pane').next().attr("id");
+            $('[href=#' + nextId + ']').tab('show');
+            return false;
+
+        });
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+            //update progress
+            var step = $(e.target).data('step');
+            var percent = (parseInt(step) / 4) * 100;
+
+            $('.progress-bar').css({ width: percent + '%' });
+            $('.progress-bar').text("Passo " + step + " de 4");
+
+            //e.relatedTarget // previous tab
+
+        });
+
+        $('.first').click(function () {
+
+            $('#myWizard a:first').tab('show');
+
+        });
+
+        $('.collapse').on('show.bs.collapse', function (e) {
+            if ($(this).hasClass("in")) {
+                console.log('id:' + e.currentTarget.id);
+            }
+        });
+
+        $('.panel-collapse.in').collapse('hide');
+    </script>
+}

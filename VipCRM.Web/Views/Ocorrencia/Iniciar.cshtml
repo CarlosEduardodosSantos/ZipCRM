@@ -1,0 +1,49 @@
+﻿@model VipCRM.Application.MVC.ViewModels.OcorrenciaViewModel
+@{
+    ViewBag.Title = "Iniciar";
+}
+
+@using (@Html.BeginForm("Iniciar", "Ocorrencia", FormMethod.Post, new { id = "register-form" }))
+{
+    @Html.HiddenFor(model => model.OcorrenciaId)
+    <h4>OCORRRENCIA: @Model.OcorrenciaId</h4>
+    <hr />
+    <h4>CLIENTE: @Model.Cliente.Nome</h4>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DataInicioVip, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DataInicioVip, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            @Html.ValidationMessageFor(model => model.DataInicioVip, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Confirmar" id="btnIniciar" data-loading-text="Aguarde..." class="btn btn-primary" data-style="expand-right" />
+
+            <button type="button" class="btn btn-warning custom-button-width .navbar-right"
+                    onclick="@("window.location.href='" + @Url.Action("Details", "Ocorrencia", new {id = @Model.OcorrenciaId }) + "'"); ">
+                <i class="fa fa-arrow-circle-left"></i> Voltar
+            </button>
+        </div>
+    </div>
+
+}
+@section Scripts {
+
+    <script>
+        $('#register-form').submit(function () {
+            if ($(this).valid()) {
+                $('#btnIniciar').button('loading');
+                return true;
+            }
+        });
+
+        $(function () {
+            // This will make every element with the class "date-picker" into a DatePicker element
+            $('#DataInicioVip').datepicker();
+        })
+
+    </script>
+}

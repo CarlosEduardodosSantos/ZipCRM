@@ -1,0 +1,56 @@
+﻿<div class="box box-success">
+    <div class="box-header">
+        <i class="ion ion-clipboard"></i>
+        <h3 class="box-title">Atendimento por Técnico</h3>
+        <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
+        </div>
+    </div>
+
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-inner" data-bind="foreach: { data: TecnicoClientes }">
+                    <!-- chat item -->
+
+                    <div class="item" data-bind="css: { 'active': $index() == 0 }">
+
+                        <div class=" box-body chat" id="chat-box">
+                            <div class="item">
+                                <img data-bind="attr:{ src: 'Content/Imagem/'+ Imagem() }" class="online" />
+                                <p class="message">
+                                    <span data-bind="text: UsuarioNome" class='direct-chat-name pull-left'></span>
+                                    <span data-bind="text: TecnicoClienteItem().length" class='direct-chat-timestamp pull-right'></span>
+                                </p>
+                                <br />
+
+                                <div class="attachment" data-bind="foreach: TecnicoClienteItem">
+                                    <p class="filename">
+                                        <span data-bind="text: ConvertDateTime(DataAgendamento)" class='direct-chat-name pull-left'></span> -
+                                        <span data-bind="text: ClienteNome"></span>
+                                        <span data-bind="text: Situacao, css:  situacaoColor(Situacao)"></span>
+                                    </p>
+                                    <br/>
+                                </div>
+                                <div class="carousel-caption">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.item -->
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+    </div><!-- /.box (chat box) -->
+</div>

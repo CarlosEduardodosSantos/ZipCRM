@@ -1,0 +1,47 @@
+﻿
+<div class=" box box-success">
+    <div class="box-header">
+        <i class="ion ion-clipboard"></i>
+        <h3 class="box-title"><b>Sabados</b></h3>
+
+    </div>
+    <div class="box-body">
+        <table id="sabado" class="table" ng-show="MonitoresEscalaSabado.length > 0">
+            <thead>
+                <tr>
+                    <th>Sábado</th>
+                    <th>Técnico</th>
+                    <th>Técnico</th>
+                    <th>Técnico</th>
+                    <th>Técnico</th>
+                    <th>Técnico</th>
+                    <th>Técnico</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="sabado2">
+
+                <tr ng-repeat="item in MonitoresEscalaSabado">
+
+                    <td><b>{{item.DIA}}</b></td>
+                    <td><div ng-class="{'text-bold': item.FUNC1.indexOf('*') > -1 }">{{item.FUNC1}}</div></td>
+                    <td><div ng-class="{'text-bold': item.FUNC2.indexOf('*') > -1 }">{{item.FUNC2}}</div></td>
+                    <td><div ng-class="{'text-bold': item.FUNC3.indexOf('*') > -1 }">{{item.FUNC3}}</div></td>
+                    <td><div ng-class="{'text-bold': item.FUNC4.indexOf('*') > -1 }">{{item.FUNC4}}</div></td>
+                    <td><div ng-class="{'text-bold': item.FUNC5.indexOf('*') > -1 }">{{item.FUNC5}}</div></td>
+                    <td><div ng-class="{'text-bold': item.FUNC6.indexOf('*') > -1 }">{{item.FUNC6}}</div></td>
+                </tr>
+
+            </tbody>
+        </table>
+        <a id='dwnldLnk' download='o ficheirinho de tostas.pdf' style="display:none;"></a>
+        <br />
+        <p>Obs: Em <b>negrito*</b> são as faltas negociadas.</p>
+        <!---->
+
+    </div><!-- /.box-body -->
+
+
+
+
+    </div>

@@ -1,0 +1,20 @@
+﻿@model IEnumerable<VipCRM.Application.MVC.ViewModels.OcorrenciaViewModel>
+
+@{
+    ViewBag.Title = "Meu Roteiro";
+}
+
+@foreach (var item in Model)
+{
+    @Html.Partial("_OcorrenciaPartial", item);
+}
+
+
+
+<hr />
+<div>
+    <button type="button" class="btn btn-warning custom-button-width .navbar-right"
+            onclick="@("window.location.href='" + @Url.Action("Index", "Home") + "'"); ">
+        <i class="fa fa-arrow-circle-left"></i> Voltar
+    </button>
+</div>

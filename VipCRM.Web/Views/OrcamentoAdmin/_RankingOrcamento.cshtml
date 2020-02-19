@@ -1,0 +1,37 @@
+﻿<div class=" box box-primary" ng-init="ultimasVendas()">
+    <div class="box-header">
+        <h3 class="box-title"><b>Ultimas Vendas</b></h3>
+    </div>
+    <div class="box-body">
+        <table id="monitores14" class="table table-striped table-hover" ng-show="orcamentos.length > 0">
+            <thead>
+                <tr>
+                    <th>Vendedor</th>
+                    <th>Equipe</th>
+                    <th>Cliente</th>
+                    <th>Data</th>
+                    <th>Total</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="monitores24">
+
+                <tr ng-repeat="item in orcamentos">
+
+                    <td><b>{{item.Vendedor}}</b></td>
+                    <td><b>{{item.Equipe}}</b></td>
+                    <td><b>{{item.Cliente}}</b></td>
+                    <td><b>{{item.DataToString}}</b></td>
+                    <td class="text-center"><b>{{item.Valor | number:2}}</b></td>
+                    <td><b>{{getLocation(item.Latitude, item.Longitude)}}</b></td>
+
+                </tr>
+
+            </tbody>
+        </table>
+        <!--<div class="progress xs">
+            <div class="progress-bar progress-bar-green" data-bind="style: { width: PercentualGeral() }"></div>
+        </div>-->
+    </div><!-- /.box-body -->
+
+</div>

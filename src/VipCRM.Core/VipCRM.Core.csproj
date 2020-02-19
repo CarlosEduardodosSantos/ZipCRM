@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F0105CD6-4762-415E-8A01-2B6E7BD9906E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VipCRM.Core</RootNamespace>
+    <AssemblyName>VipCRM.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Domain\Entites\Agenda.cs" />
+    <Compile Include="Domain\Entites\AgendaPrioridade.cs" />
+    <Compile Include="Domain\Entites\Alertas.cs" />
+    <Compile Include="Domain\Entites\Cliente.cs" />
+    <Compile Include="Domain\Entites\DemandaOcorrencia.cs" />
+    <Compile Include="Domain\Entites\Deslocamento.cs" />
+    <Compile Include="Domain\Entites\EmprestimoSituacao.cs" />
+    <Compile Include="Domain\Entites\EmprestimoSolicitacao.cs" />
+    <Compile Include="Domain\Entites\FinalizaOcorrencia.cs" />
+    <Compile Include="Domain\Entites\IniciaOcorrencia.cs" />
+    <Compile Include="Domain\Entites\Localizacao.cs" />
+    <Compile Include="Domain\Entites\Ocorrencia.cs" />
+    <Compile Include="Domain\Entites\OcorrenciaHistorico.cs" />
+    <Compile Include="Domain\Entites\OcorrenciaImagem.cs" />
+    <Compile Include="Domain\Entites\OcorrenciaMonitor.cs" />
+    <Compile Include="Domain\Entites\OcorrenciaProgramacao.cs" />
+    <Compile Include="Domain\Entites\OcorrenciaTotalizador.cs" />
+    <Compile Include="Domain\Entites\OcTecnicoCliente.cs" />
+    <Compile Include="Domain\Entites\OcTecnicoClienteItem.cs" />
+    <Compile Include="Domain\Entites\Orcamento.cs" />
+    <Compile Include="Domain\Entites\OrcamentoEquipe.cs" />
+    <Compile Include="Domain\Entites\OrcamentoRanking.cs" />
+    <Compile Include="Domain\Entites\OrcamentoTotalizar.cs" />
+    <Compile Include="Domain\Entites\Requisicao.cs" />
+    <Compile Include="Domain\Entites\ResultOcorrenciaProgramacao.cs" />
+    <Compile Include="Domain\Entites\Role.cs" />
+    <Compile Include="Domain\Entites\SabadosMonitor.cs" />
+    <Compile Include="Domain\Entites\Usuario.cs" />
+    <Compile Include="Domain\Entites\UsuarioImagem.cs" />
+    <Compile Include="Domain\Interfaces\Specification\ISpecification.cs" />
+    <Compile Include="Domain\Interfaces\Validation\IFiscal.cs" />
+    <Compile Include="Domain\Interfaces\Validation\IRegra.cs" />
+    <Compile Include="Domain\Interfaces\Validation\ISelfValidator.cs" />
+    <Compile Include="Domain\Validation\Base\FiscalBase.cs" />
+    <Compile Include="Domain\Validation\Documentos\CNPJValidation.cs" />
+    <Compile Include="Domain\Validation\Documentos\ConvertMD5.cs" />
+    <Compile Include="Domain\Validation\Documentos\CPFValidation.cs" />
+    <Compile Include="Domain\Validation\Regra.cs" />
+    <Compile Include="Domain\ValueObjects\ValidationError.cs" />
+    <Compile Include="Domain\ValueObjects\ValidationResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

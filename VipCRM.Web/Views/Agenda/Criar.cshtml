@@ -1,0 +1,107 @@
+﻿@model VipCRM.Application.MVC.ViewModels.AgendaViewModel
+@{
+    ViewBag.Title = "Novo agendamento";
+}
+
+
+@using (@Html.BeginForm("Criar", "Agenda", FormMethod.Post, new { id = "register-form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="dl-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.AgendaId)
+        @Html.HiddenFor(model => model.ClienteId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataHoraAgedado, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.DataHoraAgedado, new { htmlAttributes = new { @class = "form-control", @placeholder = "Digite data e hora" } })
+            @Html.ValidationMessageFor(model => model.DataHoraAgedado, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group" id="divcliente">
+            @Html.LabelFor(model => model.ClienteNome, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.ClienteNome, new { htmlAttributes = new { @class = "form-control", @placeholder = "Digite o nome do cliente" } })
+            @Html.ValidationMessageFor(model => model.ClienteNome, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Acao, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Acao, new { htmlAttributes = new { @class = "form-control", @placeholder = "Digite o motivo do agendamento" } })
+            @Html.ValidationMessageFor(model => model.Acao, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AcaoDescricao, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.AcaoDescricao, new { htmlAttributes = new { @class = "form-control", @placeholder = "Digite o descrição motivo do agendamento" } })
+            @Html.ValidationMessageFor(model => model.AcaoDescricao, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <button type="submit" value="Confirmar" id="btnIniciar" data-loading-text="Aguarde..." class="btn btn-primary" data-style="expand-right"
+                    class="btn btn-primary">
+                <i class="fa fa-check-circle"></i> Confirmar
+            </button>
+
+            <button id="btnVoltar" type="button" class="btn btn-warning custom-button-width .navbar-right"
+                    onclick="@("window.location.href='" + @Url.Action("Index", "Agenda") + "'");">
+                <i class="fa fa-arrow-circle-left"></i> Voltar
+            </button>
+        </div>
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery.inputmask.js"></script>
+
+
+    <script>
+        $('#register-form').submit(function() {
+            if ($(this).valid()) {
+                $('#btnIniciar').button('loading');
+                $('#btnIniciar').prop('readonly', true);
+                $('#btnVoltar').prop('readonly', true);
+                return true;
+            }
+        });
+
+
+        $("#ClienteNome").autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    dataType: "json",
+                    type: "GET",
+                    url: "/Agenda/BuscarCliente",
+                    data: { "nome": request.term },
+                    success: function(data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 3,
+            select: function(event, ui) {
+                console.log(ui.item.value);
+                $('#divcliente').removeClass('form-group');
+                $("#ClienteNome").val(ui.item.value);
+                if (ui.item.id > 0) {
+                    $("#ClienteId").val(ui.item.id);
+                    $('#divcliente').addClass('form-group has-success');
+                } else {
+                    $('#divcliente').addClass('form-group has-error');
+                }
+            }
+        });
+
+        $('#DataHoraAgedado').inputmask({ mask: "99/99/9999 99:99", greedy: false });
+
+    </script>
+}
+

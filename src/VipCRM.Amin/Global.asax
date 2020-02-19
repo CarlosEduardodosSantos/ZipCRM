@@ -1,0 +1,1 @@
+<%@ Application Codebehind="Global.asax.cs" Inherits="VipCRM.Amin.MvcApplication" Language="C#" %>

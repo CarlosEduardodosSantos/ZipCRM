@@ -1,0 +1,104 @@
+﻿@model VipCRM.Application.MVC.ViewModels.DashboardAdminViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    ViewBag.Title = "";
+
+}
+<!--<meta http-equiv="refresh" content="80" />-->
+
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    @Html.Partial("_SmallBoxes")
+    <!-- Main row -->
+    <div class="row">
+        <!-- Left col -->
+        <section class="col-lg-7 connectedSortable">
+
+            @Html.Partial("_AdminRoteiro")
+
+
+            <!-- BAR CHART -->
+            @Html.Partial("_BarChart")
+
+        </section><!-- /.Left col -->
+        <!-- right col (We are only adding the ID to make the widgets sortable)-->
+        <section class="col-lg-5 connectedSortable">
+
+            <!--Html.Partial("_Alertas")-->
+
+            @Html.Partial("_Atendimento")
+        </section><!-- right col -->
+    </div><!-- /.row (main row) -->
+</section><!-- /.content -->
+
+<button id="reloadId" data-bind="click: $root.reload, text: $root.CountTecnicosClientes()">Refresh</button>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+    <script src="~/Scripts/knockout-2.2.0.js"></script>
+    <script src="@Url.Content("~/Scripts/knockout.mapping-latest.js")" type="text/javascript"></script>
+
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+
+    <script src="~/Scripts/ViewModel/OcorrenciaToptalizadorVM.js"></script>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="~/Content/Theme/AdminLTE/plugins/morris/morris.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        
+        CarregaBar();
+
+        function CarregaBar() {
+
+            var bar = new Morris.Bar({
+                element: 'bar-chart',
+                //data: dataView,
+                data: Graph(),
+                resize: true,
+                barColors: ['#f56954', '#00a65a'],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['Ocorrencias', 'Finalizadas'],
+                hideHover: 'auto'
+            });
+
+        }
+
+
+        function Graph() {
+            var jsonData = $.ajax({
+                url: "@Url.Action("BarChart", "Adm")",
+                data: {},
+                dataType: "json",
+                type: 'GET',
+                contentType: "application/json; charset=utf-8",
+                async: false
+            }).responseText;
+            jsonData = $.parseJSON(jsonData);
+
+            //alert(jsonData);
+            return jsonData;
+        };
+
+        setInterval(function () {
+
+            CarregaBar();
+            $("#reloadId").click();
+
+            $('#carousel-example-generic').carousel({
+                'interval': 500
+            });
+
+        }, countTimer);
+
+    </script>
+}

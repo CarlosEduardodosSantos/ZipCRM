@@ -1,0 +1,32 @@
+﻿@model VipCRM.Application.MVC.ViewModels.AgendaViewModel
+@{
+    string prioridade = string.Empty;
+    switch (@Model.Prioridade)
+     {
+         case 1:
+         {
+             prioridade = "list-group-item-success";
+             break;
+         }
+         case 2:
+         {
+             prioridade = "list-group-item-warning";
+             break;
+         }
+         case 3:
+         {
+             prioridade = "list-group-item-danger";
+             break;
+         }
+        
+     };
+    <div class="list-group">
+
+        <a href="@Url.Action("Detalhe", "Agenda", new {id = @Model.AgendaId})" class="list-group-item @prioridade">
+            <small class="label pull-right bg-green">@Model.DataHoraAgedado.ToShortTimeString()</small>
+            <h4 class="list-group-item-heading">@Model.DataHoraAgedado.ToShortDateString() - @Html.DisplayFor(modelItem => @Model.ClienteNome)</h4>
+            <p class="list-group-item-text"> @Html.DisplayFor(modelItem => @Model.Acao)</p>
+        </a>
+    </div>
+
+}

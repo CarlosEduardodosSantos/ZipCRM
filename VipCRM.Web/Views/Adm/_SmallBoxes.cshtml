@@ -1,0 +1,67 @@
+﻿<div class="row">
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3 data-bind="text:Totalizador.OcorrenciasRoteiro"></h3>
+                <p>Roteiro</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+
+        </div>
+    </div><!-- ./col -->
+    <div class="col-lg-2 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3 data-bind="text:Totalizador.OcorrenciasConcluidas"></h3>
+                <p>Concluidas</p>
+
+            </div>
+            <div class="icon">
+                <i class="ion ion-happy-outline"></i>
+            </div>
+        </div>
+    </div><!-- ./col -->
+
+
+    <div class="col-lg-2 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+            <div class="inner">
+                <h3 data-bind="text:Totalizador.OcorrenciasExecucao"></h3>
+                <p>Execução</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-load-a"></i>
+            </div>
+        </div>
+    </div><!-- ./col -->
+    <div class="col-lg-2 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3 data-bind="text: OcorrenciaPendentes()"></h3>
+                <p>Pendentes</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-android-alert"></i>
+            </div>
+        </div>
+    </div><!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-purple">
+            <div class="inner">
+                <h3 data-bind="text:Totalizador.OcorrenciaAbertaGeral"></h3>
+                <p>Total ocorrências</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-help-circled"></i>
+            </div>
+        </div>
+    </div><!-- ./col -->
+
+</div><!-- /.row -->

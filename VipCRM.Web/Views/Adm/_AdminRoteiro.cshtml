@@ -1,0 +1,50 @@
+﻿
+<div class=" box box-primary">
+    <div class="box-header">
+        <i class="ion ion-clipboard"></i>
+        <h3 class="box-title">Administração de Roteiro</h3>
+
+        <div class="box-body">
+            <table id="monitores1" class="table table-striped" data-bind="visible: Monitores().length > 0">
+                <thead>
+                    <tr>
+                        <th>Técnico</th>
+                        <th>Ocorrencia(s)</th>
+                        <th>Executando</th>
+                        <th>Concluida(s)</th>
+
+                        <th>Pendencia</th>
+
+                        <th>Evolução</th>
+                        <th></th>
+                        <th>Atualização</th>
+                        <th style="width: 40px"></th>
+                    </tr>
+                </thead>
+                <tbody id="monitores2" data-bind="foreach: Monitores">
+                    <tr>
+                        <td data-bind="text: UsuarioNome"></td>
+                        <td data-bind="text: QtdeOcorrencia"></td>
+                        <td data-bind="text: QtdeOcorrenciaExecucao"></td>
+                        <td data-bind="text: QtdeOcorrenciaConcluida"></td>
+                        <td data-bind="text: QtdeOcorrenciaPendente"></td>
+                        <td>
+                            <div class="progress progress-xs">
+                                <div class="progress-bar progress-bar-green" data-bind="style: { width: percentualGeral(QtdeOcorrenciaConcluida,QtdeOcorrencia) }" style="width: 50%"></div>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-red" data-bind="text: percentualGeral(QtdeOcorrenciaConcluida,QtdeOcorrencia)"> </span></td>
+                        <td data-bind="text: DataUltAtualizacao"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div><!-- /.box-body -->
+        <div class="clearfix">
+            <span class="pull-left">Geral</span>
+            <small class="pull-right" data-bind="text:  PercentualGeral()"></small>
+        </div>
+        <div class="progress xs">
+            <div class="progress-bar progress-bar-green" data-bind="style: { width: PercentualGeral() }"></div>
+        </div>
+    </div>
+</div>

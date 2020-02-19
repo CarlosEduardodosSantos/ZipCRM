@@ -1,0 +1,44 @@
+﻿
+<div class=" box box-success">
+    <div class="box-header">
+        <i class="ion ion-clipboard"></i>
+        <h3 class="box-title"><b>Ocorrências Diárias</b></h3>
+
+    </div>
+    <div class="box-body">
+        <table id="ocorrencias" class="table" ng-show="MonitoresOcorrenciasDias.length > 0">
+            <thead>
+                <tr>
+                    <th>Oc.</th>
+                    <th>Cliente</th>
+                    <th>Problema</th>
+                    <th>Prioridade</th>
+                    <th>Tempo em Aberto</th>    
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="sabado2">
+
+                <tr ng-repeat="item in MonitoresOcorrenciasDias">
+
+                    <td><b>{{item.ocorrencia}}</b></td>
+                    <td>{{item.nomecliente}}</td>
+                    <td><b>{{item.problema}}</b></td>
+                    <td>{{item.prioridade}}</td>
+                    <td><b>{{item.qtdehoras}}</b></td>
+                    
+                </tr>
+
+            </tbody>
+        </table>
+        <a id='dwnldLnk' download='o ficheirinho de tostas.pdf' style="display:none;"></a>
+        <br />
+        
+        <!---->
+
+    </div><!-- /.box-body -->
+
+
+
+
+    </div>

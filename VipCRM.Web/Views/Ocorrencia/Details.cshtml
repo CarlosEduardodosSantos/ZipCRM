@@ -1,0 +1,190 @@
+﻿@model VipCRM.Application.MVC.ViewModels.OcorrenciaViewModel
+@{
+    ViewBag.Title = "Detalhe da ocorrência";
+}
+
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayName("Nº da Ocorrência")
+    </dt>
+    @if (@Model.DataFimVip != DateTime.MinValue)
+    {
+        <small class="label pull-right bg-green">Finalizazda</small>
+    }
+    <dd>
+        @Html.DisplayFor(model => model.OcorrenciaId)
+    </dd>
+    <dt>
+        @Html.DisplayName("Data")
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.DhOcorrencia)
+    </dd>
+    <hr />
+    <dt>
+        @Html.DisplayName("Cliente")
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Cliente.Nome)
+    </dd>
+    <hr />
+    <dt>
+        @Html.DisplayName("Solicitação")
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Comentario)
+    </dd>
+    <br />
+    <dt>
+        @Html.DisplayName("Descrição da Solicitação")
+    </dt>
+
+    <dd>
+        @Html.Raw(@Model.Problema)
+    </dd>
+
+    @if (@Model.DataFimVip != DateTime.MinValue)
+    {
+        <div class="box box-success">
+            <div class="box-header">
+                <h3 class="box-title">Finalização</h3>
+            </div>
+            <div class="box-body">
+
+                <div class="form-group">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Rat)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Rat)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        @Html.DisplayName("Data Inicio")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DataInicioVip)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        @Html.DisplayName("Data finalização")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DataFimVip)
+                    </dd>
+                </div>
+
+                <div class="form-group">
+                    <dt>
+                        @Html.DisplayName("Solução")
+                    </dt>
+
+                    <dd>
+                        @Html.Raw(@Model.Solucao)
+                    </dd>
+                </div>
+                <div class="form-group">
+                    <dt>
+                        @Html.DisplayName("PDF")
+                    </dt>
+
+                    <dd>
+                        <div id="divBrowserInfo"></div>
+                        <div id="divImageHolder"></div>
+                        <button id="btnLoadImage">Visualizar</button>
+                    </dd>
+                </div>
+
+            </div>
+        </div>
+    }
+</dl>
+<hr />
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+
+        <input type="button" value="Iniciar" onclick=" location.href='@Url.Action("Iniciar", "Ocorrencia", new {id = @Model.OcorrenciaId})' "
+               @((Model.DataInicioVip != DateTime.MinValue) ? "disabled" : "")
+               class=" btn btn-primary" data-style="expand-right" />
+        <input type="button" value="Finalizar" onclick=" location.href='@Url.Action("Finalizar", "Ocorrencia", new {id = @Model.OcorrenciaId})' "
+               @((Model.DataInicioVip == DateTime.MinValue || @Model.DataFimVip != DateTime.MinValue) ? "disabled" : "")
+               class="btn btn-primary" data-style="expand-right" />
+
+        <button type="button" class="btn btn-warning custom-button-width .navbar-right"
+                onclick="@("window.location.href='" + @Url.Action("Index", "Ocorrencia") + "'"); ">
+            <i class="fa fa-arrow-circle-left"></i> Voltar
+        </button>
+
+    </div>
+</div>
+
+
+
+
+@section Scripts
+{
+
+    <script>
+
+        var imgs = null;
+        var ocorrenciaId = @Html.Raw(Json.Encode(Model.OcorrenciaId));
+
+        var displayError = function() {
+            var browserMsg = "Imagem não encontrada";
+            $("#divBrowserInfo").html(browserMsg);
+        };
+
+        var displayImage = function(base64Data) {
+            var imag = "<img class=\"img-responsive\""
+                + "src='" + "data:image/jpg;base64,"
+                + base64Data + "'/>";
+
+            $("#divImageHolder").html(imag);
+        };
+
+        $("#btnLoadImage").click(function() {
+            if (imgs != null) {
+                displayImage(imgs.base64imgage);
+                return;
+            }
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: 'http://maissolucoesvip.ddns.com.br:3103/api/ocorrencia/filePdf/' + ocorrenciaId
+            }).success(function (data, status, headers, config) {
+
+
+                var fileName = "rat_" + ocorrenciaId + ".pdf";
+                var byteCharacters = atob(data);
+                var byteNumbers = new Array(byteCharacters.length);
+                for (var i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                var byteArray = new Uint8Array(byteNumbers);
+                var blob = new Blob([byteArray], { type: 'application/pdf' });
+
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) { // IE workaround
+                    window.navigator.msSaveOrOpenBlob(blob, fileName);
+                } else {
+                    var fileURL = URL.createObjectURL(blob);
+                    window.open(fileURL);
+                }
+
+
+            }).error(function (data, status, headers, config) {
+                alert("Erro ao gerar o pdf");
+            });
+        });
+
+    </script>
+}

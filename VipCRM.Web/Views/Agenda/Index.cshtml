@@ -1,0 +1,10 @@
+﻿@model IEnumerable<VipCRM.Application.MVC.ViewModels.AgendaViewModel>
+
+@{
+    ViewBag.Title = "Minha agenda";
+}
+
+@foreach (var item in Model)
+{
+    @Html.Partial("_AgendaPartial", item);
+}

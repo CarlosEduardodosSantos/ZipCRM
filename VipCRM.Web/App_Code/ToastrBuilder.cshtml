@@ -1,0 +1,33 @@
+﻿@using System.Web.Optimization
+@using VipCRM.Web.Framework.UI.toastr
+
+
+@helper ShowToastMessages(Toastr toastr)
+{
+    if (toastr != null)
+    {
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/toastr")
+    
+        <script>
+            $(document).ready(function() {
+                toastr.options.closeButton = '@toastr.ShowCloseButton';
+                toastr.options.newestOnTop = '@toastr.ShowNewestOnTop';
+                toastr.options.positionClass = 'toast-top-center';
+
+                @foreach (ToastMessage message in toastr.ToastMessages)
+                {
+                    string toastTypeValue = message.ToastType.ToString("F").ToLower();
+                    @: var optionsOverride = { /* Add message specific options here */ };
+                    if (message.IsSticky)
+                    {
+                        @:optionsOverride.timeOut = 0;
+                        @:optionsOverride.extendedTimeout = 0;
+                    }
+                    @:toastr['@toastTypeValue']('@message.Message', '@message.Title', optionsOverride);
+                }
+            });
+        </script>
+    }
+
+}

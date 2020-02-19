@@ -1,0 +1,31 @@
+﻿@model VipCRM.Application.MVC.ViewModels.OcorrenciaViewModel
+@{
+
+    string prioridade = "list-group-item-info";
+
+    if (@Model.DataInicioVip != DateTime.MinValue && @Model.DataFimVip == DateTime.MinValue)
+    {
+        prioridade = "list-group-item-warning";
+    }
+    else if (@Model.DataFimVip != DateTime.MinValue)
+    {
+        prioridade = "list-group-item-success";
+    }
+    else if (@Model.DataInicioVip == DateTime.MinValue && @Model.QuantidadeDias >= 2)
+    {
+        prioridade = "list-group-item-danger";
+    }
+    
+    <div class="list-group">
+        <a href="@Url.Action("Details", "Ocorrencia", new {id = @Model.OcorrenciaId})" class="list-group-item @prioridade">
+            <h4 class="list-group-item-heading">
+                @Model.OcorrenciaId
+            | @Model.DhOcorrencia.ToString("dd-MM-yyy")
+            @Model.DhRoteiro.ToShortTimeString()
+            | @Model.Cliente.Nome
+        </h4>
+        <p class="list-group-item-text"> @Model.Comentario</p>
+    </a>
+</div>
+
+}

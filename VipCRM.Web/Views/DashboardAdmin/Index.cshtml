@@ -1,0 +1,153 @@
+﻿    @{
+        Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+        ViewBag.Title = "";
+
+    }
+    <!--<meta http-equiv="refresh" content="80" />-->
+<div ng-controller="MainCtrl">
+
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        @Html.Partial("_SmallBoxes")
+        <!-- Main row -->
+        <div class="row margin">
+            <!-- Left col -->
+            <section class="col-lg-6 connectedSortable">
+
+                <!-- SOMENTE ROTEIRO -->
+                <div class="row">
+                    @Html.Partial("_Sabados")
+                </div>
+
+                             
+            </section>
+
+
+
+            <section class="col-lg-3 connectedSortable">
+
+                <!-- TODAS AS OCORRENCIAS ABERTAS, INCLUINDO ATENDIMENTO FONE -->
+
+
+                @Html.Partial("_AdminRoteiroPendentes30")
+
+
+
+            </section>
+
+            <section class="col-lg-3 connectedSortable">
+
+                <!-- SOMENTE BAIXADAS POR ROTEIRO FEITO (CARRO OU ADM) -->
+
+                @Html.Partial("_Atendimento30")
+
+                <!--Html.Partial("_BarChart")" Demanda por ocorrencia"-->
+
+            </section><!-- right col -->
+
+            <section class="col-lg-10 connectedSortable">
+
+                <!-- Novas ocorrencias -->
+                
+                    @Html.Partial("_OcorrenciasDias")
+                
+
+
+            </section>
+
+
+
+        </div><!-- /.row (main row) -->
+
+    </section><!--   -->
+
+</div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <link href="~/Content/Theme/AdminLTE/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+        <script src="~/Scripts/app/controller/dashboardcontroller.js"></script>
+
+        <script src="~/Scripts/knockout-2.2.0.js"></script>
+
+        <script src="@Url.Content("~/Scripts/knockout.mapping-latest.js")" type="text/javascript"></script>
+
+        <script src="~/Scripts/moment.js"></script>
+        <script src="~/Scripts/moment-with-locales.js"></script>
+
+        <script src="~/Scripts/ViewModel/DashBoardAdminVM.js"></script>
+
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+        <script src="~/Content/Theme/AdminLTE/plugins/morris/morris.min.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus();
+        });
+
+        var colorOrig = $("#monitores1").css('background');
+        /*
+        $("#monitores1").on("mouseover", 'tr', function () {
+            //$(this).css('background', '#5f9ea0');
+            $(this).css('cursor', 'pointer');
+        });
+        $("#monitores1").on("mouseout", 'tr', function () {
+            //$(this).css('background', colorOrig);
+            $(this).css('cursor', 'auto');
+        });
+        */
+        //CarregaBar();
+
+       function CarregaBar() {
+
+            var bar = new Morris.Bar({
+                element: 'bar-chart',
+                //data: dataView,
+                data: Graph(),
+                resize: true,
+                barColors: ['#f56954', '#00a65a'],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['Ocorrencias', 'Finalizadas'],
+                hideHover: 'auto'
+            });
+
+        }
+
+
+       function Graph() {
+            var jsonData = $.ajax({
+                url: "@Url.Action("BarChart", "DashboardAdmin")",
+                data: {},
+                dataType: "json",
+                type: 'GET',
+                contentType: "application/json; charset=utf-8",
+                async: false
+            }).responseText;
+            jsonData = $.parseJSON(jsonData);
+
+            //alert(jsonData);
+            return jsonData;
+        };
+
+        setInterval(function () {
+            getAll();
+
+            CarregaBar();
+            $("#reloadId").click();
+
+            $('#carousel-example-generic').carousel({
+                'interval': 500
+            });
+
+
+
+        }, countTimer);
+        // TESTE
+        
+        // TESTE
+                   
+        </script>
+    }

@@ -1,0 +1,34 @@
+﻿
+<div class=" box box-success">
+    <div class="box-header">
+        <i class="ion ion-clipboard"></i>
+        <h3 class="box-title"><b>Aonde estou</b></h3>
+    </div>
+    <div class="box-body">
+        <table id="monitores1" class="table table-striped table-hover" ng-show="Localizacoes.length > 0">
+            <thead>
+                <tr>
+                    <th>Técnico</th>
+                    <th>Localização</th>
+                    <th>Data Hora</th>
+                    <th>Ocorrencia</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="localizacoesId">
+
+                <tr ng-repeat="item in Localizacoes">
+
+                    <td><b>{{item.Nome}}</b></td>
+                    <td>{{item.Endereco}}</td>
+                    <td>{{item.DataToString}}</td>
+                    <td><a ng-click="openPdv(item.OcorrenciaId)">{{item.OcorrenciaId}}</a></td>
+                    <td>{{item.DescricaoOperacao}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <a id='dwnldLnk' download='o ficheirinho de tostas.pdf' style="display:none;"></a>
+    </div><!-- /.box-body -->
+
+</div>

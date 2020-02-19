@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B6AFADDA-D1EE-4A7F-9B96-BFAA64099D97}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VipCRM.Data</RootNamespace>
+    <AssemblyName>VipCRM.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>..\..\packages\Dapper.1.40\lib\net45\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\packages\CommonServiceLocation.1.0.0\lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessAdo\BusinessObject.cs" />
+    <Compile Include="BusinessAdo\ClientEnvironment.cs" />
+    <Compile Include="BusinessAdo\DALObject.cs" />
+    <Compile Include="BusinessAdo\EncryptUtils.cs" />
+    <Compile Include="BusinessAdo\Enums.cs" />
+    <Compile Include="DALObject\ClienteDALObject.cs" />
+    <Compile Include="DALObject\OcorrenciaDALObject.cs" />
+    <Compile Include="DALObject\OcorrenciaHistoricoDALObject.cs" />
+    <Compile Include="DALObject\UsuarioDALObject.cs" />
+    <Compile Include="Interface\Repositories\IAgendaRepositories.cs" />
+    <Compile Include="Interface\Repositories\IAlertaRepository.cs" />
+    <Compile Include="Interface\Repositories\IClienteRepositories.cs" />
+    <Compile Include="Interface\Repositories\IDemandaOcorrenciaRepository.cs" />
+    <Compile Include="Interface\Repositories\IOcorrenciaImagemRepositories.cs" />
+    <Compile Include="Interface\Repositories\IOcorrenciaAdmRepository.cs" />
+    <Compile Include="Interface\Repositories\IOcorrenciaProgramacaoRepository.cs" />
+    <Compile Include="Interface\Repositories\IOcTecnicoClienteRepository.cs" />
+    <Compile Include="Interface\Repositories\IOrcamentoDashBoardRepository.cs" />
+    <Compile Include="Interface\Repositories\IRoleRepositories.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BusinessAdo\QueryObject.cs" />
+    <Compile Include="BusinessAdo\SQLUtils.cs" />
+    <Compile Include="BusinessAdo\Utils.cs" />
+    <Compile Include="QueryObject\ClienteQueryObject.cs" />
+    <Compile Include="QueryObject\OcorrenciaHistoricoQueryObject.cs" />
+    <Compile Include="QueryObject\OcorrenciaQueryObject.cs" />
+    <Compile Include="QueryObject\UsuarioQueryObject.cs" />
+    <Compile Include="Interface\Repositories\IOcorrenciaRepositories.cs" />
+    <Compile Include="Interface\Repositories\IUsuarioRepositories.cs" />
+    <Compile Include="Repositories\AgendaRepositories.cs" />
+    <Compile Include="Repositories\AlertaRepository.cs" />
+    <Compile Include="Repositories\ClienteRepositories.cs" />
+    <Compile Include="Repositories\DemandaOcorrenciaRepository.cs" />
+    <Compile Include="Repositories\OcorrenciaAdmRepository.cs" />
+    <Compile Include="Repositories\OcorrenciaProgramacaoRepository.cs" />
+    <Compile Include="Repositories\OcorrenciaRepositories.cs" />
+    <Compile Include="Repositories\OcorrenciaImagemRepositories.cs" />
+    <Compile Include="Repositories\OcTecnicoClienteRepository.cs" />
+    <Compile Include="Repositories\OrcamentoDashBoardRepository.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Repositories\RoleRepositories.cs" />
+    <Compile Include="Repositories\UsuarioRepositories.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VipCRM.Core\VipCRM.Core.csproj">
+      <Project>{f0105cd6-4762-415e-8a01-2b6e7bd9906e}</Project>
+      <Name>VipCRM.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

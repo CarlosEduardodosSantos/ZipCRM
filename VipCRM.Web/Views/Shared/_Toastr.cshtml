@@ -1,0 +1,7 @@
+﻿@using VipCRM.Web.Framework.UI.toastr
+
+@if (ViewData.ContainsKey("Toastr"))
+{
+    Toastr toastr = ViewData["Toastr"] as Toastr;
+    @ToastrBuilder.ShowToastMessages(toastr);
+}

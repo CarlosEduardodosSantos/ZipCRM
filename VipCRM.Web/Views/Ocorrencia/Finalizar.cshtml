@@ -1,0 +1,78 @@
+﻿@model VipCRM.Application.MVC.ViewModels.OcorrenciaViewModel
+
+@{
+    ViewBag.Title = "Finalizar";
+}
+
+@using (Html.BeginForm("Finalizar", "Ocorrencia", FormMethod.Post, new { id = "register-form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.OcorrenciaId)
+    <h5>Ocorrência: @Model.OcorrenciaId</h5>
+    <h5>Cliente: @Model.Cliente.Nome</h5>
+    <hr />
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataFimVip, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.DataFimVip, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DataFimVip, "", new { @class = "text-danger", @readonly = true})
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Solucao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Solucao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Solucao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Rat, new { htmlAttributes = new { @class = "form-control", @Value = Model.OcorrenciaId } })
+                @Html.ValidationMessageFor(model => model.Rat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsPendente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(model => model.IsPendente, new { htmlAttributes = new { @class = "form-control" } }) Sim
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <input type="file" name="uploadFile" id="uploadFile" accept="image/x-png, image/gif, image/jpeg" />
+        <hr />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="btnFinalizar" value="Finalizar" data-loading-text="Aguarde..." class="btn btn-primary" data-style="expand-right" />
+
+                <button type="button" class="btn btn-warning custom-button-width .navbar-right"
+                        onclick="@("window.location.href='" + @Url.Action("Details", "Ocorrencia", new { id = @Model.OcorrenciaId }) + "'"); ">
+                    <i class="fa fa-arrow-circle-left"></i> Voltar
+                </button>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('#register-form').submit(function () {
+            if ($(this).valid()) {
+                $('#btnFinalizar').button('loading');
+                return true;
+            }
+        });
+    </script>
+}
