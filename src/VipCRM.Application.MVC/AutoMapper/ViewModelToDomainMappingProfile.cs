@@ -32,8 +32,9 @@ namespace VipCRM.Application.MVC.AutoMapper
             Mapper.CreateMap<OrcamentoEquipeViewModel, OrcamentoEquipe>();
             Mapper.CreateMap<OrcamentoViewModel, Orcamento>();
             Mapper.CreateMap<OrcamentoTotalizarViewModel, OrcamentoTotalizar>();
-
             Mapper.CreateMap<SabadosMonitorViewModel, SabadosMonitor>();
+            Mapper.CreateMap<AbastecimentoViewModel, Abastecimento>();
+            Mapper.CreateMap<VeiculoViewModel, Veiculo>();
         }
     }
 }

@@ -58,6 +58,7 @@
     <Compile Include="DALObject\OcorrenciaDALObject.cs" />
     <Compile Include="DALObject\OcorrenciaHistoricoDALObject.cs" />
     <Compile Include="DALObject\UsuarioDALObject.cs" />
+    <Compile Include="Interface\Repositories\IAbastecimentoRepository.cs" />
     <Compile Include="Interface\Repositories\IAgendaRepositories.cs" />
     <Compile Include="Interface\Repositories\IAlertaRepository.cs" />
     <Compile Include="Interface\Repositories\IClienteRepositories.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="QueryObject\UsuarioQueryObject.cs" />
     <Compile Include="Interface\Repositories\IOcorrenciaRepositories.cs" />
     <Compile Include="Interface\Repositories\IUsuarioRepositories.cs" />
+    <Compile Include="Repositories\AbstecimentoRepository.cs" />
     <Compile Include="Repositories\AgendaRepositories.cs" />
     <Compile Include="Repositories\AlertaRepository.cs" />
     <Compile Include="Repositories\ClienteRepositories.cs" />

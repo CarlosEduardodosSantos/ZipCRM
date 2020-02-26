@@ -37,6 +37,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Entites\Abastecimento.cs" />
     <Compile Include="Domain\Entites\Agenda.cs" />
     <Compile Include="Domain\Entites\AgendaPrioridade.cs" />
     <Compile Include="Domain\Entites\Alertas.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Domain\Entites\SabadosMonitor.cs" />
     <Compile Include="Domain\Entites\Usuario.cs" />
     <Compile Include="Domain\Entites\UsuarioImagem.cs" />
+    <Compile Include="Domain\Entites\Veiculo.cs" />
     <Compile Include="Domain\Interfaces\Specification\ISpecification.cs" />
     <Compile Include="Domain\Interfaces\Validation\IFiscal.cs" />
     <Compile Include="Domain\Interfaces\Validation\IRegra.cs" />

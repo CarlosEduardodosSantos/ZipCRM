@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbastecimentoAppService.cs" />
     <Compile Include="AgendaAppService.cs" />
     <Compile Include="AutoMapper\AutoMapperConfig.cs" />
     <Compile Include="AutoMapper\DomainToApplicationMappingProfile.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="AutoMapper\ViewModelToDomainMappingProfile.cs" />
     <Compile Include="ClienteAppService.cs" />
     <Compile Include="DashBoardAdminAppService.cs" />
+    <Compile Include="Interface\IAbastecimentoAppService.cs" />
     <Compile Include="Interface\IAgendaAppService.cs" />
     <Compile Include="Interface\IAppServiceBase.cs" />
     <Compile Include="Interface\IClienteAppService.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="UsuarioAppService.cs" />
     <Compile Include="Validation\ValidationAppError.cs" />
     <Compile Include="Validation\ValidationAppResult.cs" />
+    <Compile Include="ViewModels\AbastecimentoViewModel.cs" />
     <Compile Include="ViewModels\AdressResultViewModel.cs" />
     <Compile Include="ViewModels\AgendaViewModel.cs" />
     <Compile Include="ViewModels\AlertaViewModel.cs" />
@@ -111,6 +114,7 @@
     <Compile Include="ViewModels\SabadosMonitorViewModel.cs" />
     <Compile Include="ViewModels\UsuarioImagemViewModel.cs" />
     <Compile Include="ViewModels\UsuarioViewModel.cs" />
+    <Compile Include="ViewModels\VeiculoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

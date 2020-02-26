@@ -203,6 +203,7 @@
     <Compile Include="Controllers\AcessoController.cs" />
     <Compile Include="Controllers\OrcamentoAdminController.cs" />
     <Compile Include="Controllers\ProgramacaoApiController.cs" />
+    <Compile Include="Controllers\AbastecimentoApiController.cs" />
     <Compile Include="Filter\MessagesActionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -211,6 +212,7 @@
     <Compile Include="Infrastructure\CustomMembershipProvider.cs" />
     <Compile Include="Infrastructure\CustomRoleProvider.cs" />
     <Compile Include="Infrastructure\UserIdentity .cs" />
+    <Compile Include="Models\AbastecimentoNotificacaoModel.cs" />
     <Compile Include="Models\Produtos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

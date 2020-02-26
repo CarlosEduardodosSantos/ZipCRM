@@ -23,11 +23,9 @@ namespace VipCRM.Application.MVC.AutoMapper
 
             Mapper.CreateMap<OcTecnicoCliente, OcTecnicoClienteViewModel>()
                 .ForMember(dest => dest.TecnicoClienteItem, opt => opt.MapFrom(src => src.TecnicoClienteItem));
-
             Mapper.CreateMap<OcTecnicoClienteItem, OcTecnicoClienteItemViewModel>();
             Mapper.CreateMap<DemandaOcorrencia, DemandaOcorrenciaViewModel>();
             Mapper.CreateMap<OcorrenciaTotalizador, OcorrenciaTotalizadorViewModel>();
-
             Mapper.CreateMap<ResultOcorrenciaProgramacao, ResultOcorrenciaProgramacaoViewModel>();
             Mapper.CreateMap<OcorrenciaProgramacao, OcorrenciaProgramacaoViewModel>();
             Mapper.CreateMap<IniciaOcorrencia, IniciaOcorrenciaViewModel>();
@@ -40,8 +38,9 @@ namespace VipCRM.Application.MVC.AutoMapper
             Mapper.CreateMap<OrcamentoEquipe, OrcamentoEquipeViewModel>();
             Mapper.CreateMap<Orcamento, OrcamentoViewModel>();
             Mapper.CreateMap<OrcamentoTotalizar, OrcamentoTotalizarViewModel>();
-
             Mapper.CreateMap<SabadosMonitor, SabadosMonitorViewModel>();
+            Mapper.CreateMap<Abastecimento, AbastecimentoViewModel>();
+            Mapper.CreateMap<Veiculo, VeiculoViewModel>();
 
         }
     }
