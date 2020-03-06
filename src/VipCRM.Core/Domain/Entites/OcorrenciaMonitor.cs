@@ -12,6 +12,9 @@ namespace VipCRM.Core.Domain.Entites
         public int QtdeOcorrenciaConcluida { get; set; }
         public int QtdeConcluida { get; set; }
         public int QtdeConcluida30 { get; set; }
+        public int QtdeConcluidaInt30 { get; set; }
+        public int QtdeConcluidaExt30 { get; set; }
+        public int Qtdetotal { get; set; }
         public int QtdeConcluida30Anterior { get; set; }
         public int QtdeOcorrenciaPendente { get; set; }
         public int QtdeOcorrenciaPendente30 { get; set; }

@@ -74,7 +74,7 @@ namespace VipCRM.Data.Repositories
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                var ocorrencias = cn.Query<OcorrenciaMonitor>("Select * From vw_dash_monitor_OcorrenciaConcluidasMes");
+                var ocorrencias = cn.Query<OcorrenciaMonitor>("Select * From vw_dash_monitor_OcorrenciaConcluidasMes order by Qtdetotal desc");
                 cn.Close();
 
                 return ocorrencias;

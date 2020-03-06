@@ -30,6 +30,9 @@
             $scope.MonitoresPendentes30Anterior = data.MonitoresPendentes30Anterior;
             $scope.MonitoresConcluido = data.MonitoresConcluido;
             $scope.MonitoresConcluido30 = data.MonitoresConcluido30;
+            $scope.MonitoresConcluidoInt30 = data.MonitoresConcluidoInt30;
+            $scope.MonitoresConcluidoExt30 = data.MonitoresConcluidoExt30;
+            $scope.MonitoresConcluidoTotal30 = data.MonitoresConcluidoTotal30;
             $scope.MonitoresConcluido30Anterior = data.MonitoresConcluido30Anterior;
             $scope.MonitoresEscalaSabado = data.MonitoresEscalaSabado;
             $scope.MonitoresOcorrenciasDias = data.MonitoresOcorrenciasDias;
