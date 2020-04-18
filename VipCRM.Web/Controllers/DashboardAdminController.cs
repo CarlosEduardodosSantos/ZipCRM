@@ -53,7 +53,7 @@ namespace VipCRM.Web.Controllers
                     MonitoresConcluidoInt30 = _boardAdminAppService.RoteiroConcluido30().OrderByDescending(o => o.QtdeConcluidaInt30),
                     MonitoresConcluidoExt30 = _boardAdminAppService.RoteiroConcluido30().OrderByDescending(o => o.QtdeConcluidaExt30),
                     MonitoresConcluidoTotal30 = _boardAdminAppService.RoteiroConcluido30().OrderByDescending(o => o.Qtdetotal),
-                    MonitoresConcluido30Anterior = _boardAdminAppService.RoteiroConcluido30Anterior().OrderByDescending(o => o.QtdeConcluida30Anterior),
+                    MonitoresConcluido30Anterior = _boardAdminAppService.RoteiroConcluido30Anterior().OrderByDescending(o => o.Qtdetotal),
                     MonitoresOcorrenciasDias = _boardAdminAppService.ObterOcorrenciasDias().OrderBy(o => o.hora),
                     MonitoresEscalaSabado = _boardAdminAppService.EscalaSabados().OrderBy(o => o.DATA),
                     TecnicoClientes = _boardAdminAppService.OcorrenciasPorTecnico()
