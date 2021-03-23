@@ -87,7 +87,8 @@ namespace VipCRM.Application.MVC.ViewModels
             output = Regex.Replace(output, @"\}", string.Empty); //replacing the remaining braces
 
 
-            return output.Remove(output.Length - 1); //to trim last char (line end)
+            //return output.Remove(output.Length - 1); //to trim last char (line end)
+            return output;
         }
 
         private bool VerificaDeslocamento()
