@@ -58,11 +58,13 @@
     <Compile Include="AutoMapper\ViewModelToDomainMappingProfile.cs" />
     <Compile Include="ClienteAppService.cs" />
     <Compile Include="DashBoardAdminAppService.cs" />
+    <Compile Include="EmpresaAppService.cs" />
     <Compile Include="Interface\IAbastecimentoAppService.cs" />
     <Compile Include="Interface\IAgendaAppService.cs" />
     <Compile Include="Interface\IAppServiceBase.cs" />
     <Compile Include="Interface\IClienteAppService.cs" />
     <Compile Include="Interface\IDashBoardAdminAppService.cs" />
+    <Compile Include="Interface\IEmpresaAppService.cs" />
     <Compile Include="Interface\ILocationAppService.cs" />
     <Compile Include="Interface\IOcorrenciaAdmAppService.cs" />
     <Compile Include="Interface\IOcorrenciaAppService.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\DemandaOcorrencia.cs" />
     <Compile Include="ViewModels\DeslocamentoViewModel.cs" />
+    <Compile Include="ViewModels\EmpresaViewModel.cs" />
     <Compile Include="ViewModels\FinalizaOcorrenciaViewModel.cs" />
     <Compile Include="ViewModels\IniciaOcorrenciaViewModel.cs" />
     <Compile Include="ViewModels\LocalizacaoViewModel.cs" />

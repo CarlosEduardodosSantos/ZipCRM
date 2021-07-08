@@ -74,9 +74,9 @@ namespace VipCRM.Data.Repositories
         public IEnumerable<Ocorrencia> ObterOcorrenciasPorUsuarioRoteiro(int usuarioId)
         {
             var sql = new StringBuilder().Append(GetSelectBasic());
-            sql.Append(" Where Ocorrencia.data_roteiro is not null And Ocorrencia.Ok_Data is null");
-            sql.Append(" And Ocorrencia.Age_Tecnico = @sid");
-            sql.Append(" Order By Roteiro_1.Nro");
+            sql.Append(" Where DhRoteiro is not null And DataFimVip is null");
+            sql.Append(" And UsuarioId = @sid");
+            sql.Append(" Order By DhRoteiro");
 
             using (IDbConnection cn = Connection)
             {
@@ -87,7 +87,7 @@ namespace VipCRM.Data.Repositories
                 var ocorrencias = cn.Query<Ocorrencia>(sql.ToString(), new { sid = usuarioId });
 
                 sql = new StringBuilder().Append(GetSelectBasic());
-                sql.Append(" Where Ocorrencia.ocorrencia= @sid");
+                sql.Append(" Where OcorrenciaId = @sid");
                 foreach (var ocorrencia in ocorrencias)
                 {
                     var cliente =
@@ -162,7 +162,7 @@ namespace VipCRM.Data.Repositories
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                cn.Execute("spIniciarOcorrencia", param, commandType: CommandType.StoredProcedure);
+                cn.Query("spIniciarOcorrencia", param, commandType: CommandType.StoredProcedure);
                 cn.Close();
 
                 return new ValidationResult();
@@ -367,9 +367,11 @@ namespace VipCRM.Data.Repositories
 
         public override string GetSelectBasic()
         {
+            return "Select * from Vw_OcorrenciaRat";
             return @"select
 	                Ocorrencia.ocorrencia as OcorrenciaId,
-                    --Roteiro_2.nro as RoreitoId,
+                    RoteiroId = (Select top 1 Roteiro_2.nro From Roteiro_2 Where Ocorrencia.ocorrencia = Roteiro_2.Ocorrencia Order By Chave desc),
+					Sequencia = (Select top 1 Roteiro_2.Ordem From Roteiro_2 Where Ocorrencia.ocorrencia = Roteiro_2.Ocorrencia Order By Chave desc),
 	                Ocorrencia.cliente as ClienteId,
 	                Ocorrencia.Age_Tecnico as UsuarioId,
 	                Ocorrencia.data as DataOcorrencia,
@@ -417,7 +419,7 @@ namespace VipCRM.Data.Repositories
                 left join usuarios emcaminhado	on Ocorrencia.enc_tecnico = emcaminhado.codigo
                 left join usuarios excutando	on Ocorrencia.age_tecnico = excutando.codigo
                 left join Roteiro_1 On Ocorrencia.Age_nro = Roteiro_1.Nro
-                --left join Roteiro_2 On Ocorrencia.ocorrencia = Roteiro_2.Ocorrencia
+                left join Roteiro_2 On Ocorrencia.ocorrencia = Roteiro_2.Ocorrencia
 	            Left Join frota_1 On Roteiro_1.Veiculo = frota_1.Codigo ";
         }
 

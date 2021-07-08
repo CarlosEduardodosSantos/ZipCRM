@@ -18,7 +18,8 @@ namespace VipCRM.Application.MVC.ViewModels
 
         public int ClienteId { get; set; }
         public int UsuarioId { get; set; }
-        public int RoreitoId { get; set; }
+        public int RoteiroId { get; set; }
+        public int Sequencia { get; set; }
         public DateTime DhOcorrencia { get; set; }
         public DateTime DhRoteiro { get; set; }
         public int QuantidadeDias { get; set; }

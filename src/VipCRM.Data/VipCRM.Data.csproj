@@ -63,6 +63,7 @@
     <Compile Include="Interface\Repositories\IAlertaRepository.cs" />
     <Compile Include="Interface\Repositories\IClienteRepositories.cs" />
     <Compile Include="Interface\Repositories\IDemandaOcorrenciaRepository.cs" />
+    <Compile Include="Interface\Repositories\IEmpresaRepository.cs" />
     <Compile Include="Interface\Repositories\IOcorrenciaImagemRepositories.cs" />
     <Compile Include="Interface\Repositories\IOcorrenciaAdmRepository.cs" />
     <Compile Include="Interface\Repositories\IOcorrenciaProgramacaoRepository.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Repositories\AlertaRepository.cs" />
     <Compile Include="Repositories\ClienteRepositories.cs" />
     <Compile Include="Repositories\DemandaOcorrenciaRepository.cs" />
+    <Compile Include="Repositories\EmpresaRepository.cs" />
     <Compile Include="Repositories\OcorrenciaAdmRepository.cs" />
     <Compile Include="Repositories\OcorrenciaProgramacaoRepository.cs" />
     <Compile Include="Repositories\OcorrenciaRepositories.cs" />

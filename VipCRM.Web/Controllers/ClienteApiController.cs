@@ -6,7 +6,7 @@ using VipCRM.Application.MVC.ViewModels;
 
 namespace VipCRM.Web.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    
     [RoutePrefix("api/cliente")]
     public class ClienteApiController : ApiController
     {
