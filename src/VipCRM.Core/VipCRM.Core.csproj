@@ -44,6 +44,7 @@
     <Compile Include="Domain\Entites\Cliente.cs" />
     <Compile Include="Domain\Entites\DemandaOcorrencia.cs" />
     <Compile Include="Domain\Entites\Deslocamento.cs" />
+    <Compile Include="Domain\Entites\Empresa.cs" />
     <Compile Include="Domain\Entites\EmprestimoSituacao.cs" />
     <Compile Include="Domain\Entites\EmprestimoSolicitacao.cs" />
     <Compile Include="Domain\Entites\FinalizaOcorrencia.cs" />

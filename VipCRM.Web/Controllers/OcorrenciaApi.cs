@@ -73,7 +73,7 @@ namespace VipCRM.Web.Controllers
 
                 return StatusCode(HttpStatusCode.OK);
             }
-            catch
+            catch(Exception e)
             {
                 return StatusCode(HttpStatusCode.BadRequest);
             }

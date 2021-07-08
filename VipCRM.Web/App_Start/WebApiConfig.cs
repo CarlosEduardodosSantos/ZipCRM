@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using SimpleInjector.Integration.WebApi;
@@ -11,6 +12,13 @@ namespace VipCRM.Web
         public static void Register(HttpConfiguration config)
         {
 
+            // New code
+            config.EnableCors();
+
+
+            config.Formatters.JsonFormatter.SupportedMediaTypes
+                .Add(new MediaTypeHeaderValue("text/html"));
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -19,8 +27,9 @@ namespace VipCRM.Web
                 new { id = RouteParameter.Optional }
             );
 
-            var cors = new EnableCorsAttribute("*", "*", "*");
-            config.EnableCors(cors);
+
+
+            
 
             /*
             configuration.Routes.MapHttpRoute(

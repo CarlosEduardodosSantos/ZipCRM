@@ -33,6 +33,7 @@ namespace Vip.CrossCutting.IoC
             container.Register<IOcorrenciaProgramacaoAppService, OcorrenciaProgramacaoAppService>();
             container.Register<IOrcamentoDashBoardAppService, OrcamentoDashBoardAppService>();
             container.Register<IAbastecimentoAppService, AbastecimentoAppService>();
+            container.Register<IEmpresaAppService, EmpresaAppService>();
             //data
             container.Register<IOcorrenciaRepositories, OcorrenciaRepositories>();
             container.Register<IUsuarioRepositories, UsuarioRepositories>();
@@ -46,6 +47,7 @@ namespace Vip.CrossCutting.IoC
             container.Register<IOcorrenciaProgramacaoRepository, OcorrenciaProgramacaoRepository>();
             container.Register<IOrcamentoDashBoardRepository, OrcamentoDashBoardRepository>();
             container.Register<IAbastecimentoRepository, AbastecimentoRepository>();
+            container.Register<IEmpresaRepository, EmpresaRepository>();
 
             return container;
         }

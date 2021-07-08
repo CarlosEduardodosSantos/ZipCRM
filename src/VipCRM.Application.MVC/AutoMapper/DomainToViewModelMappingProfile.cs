@@ -41,6 +41,7 @@ namespace VipCRM.Application.MVC.AutoMapper
             Mapper.CreateMap<SabadosMonitor, SabadosMonitorViewModel>();
             Mapper.CreateMap<Abastecimento, AbastecimentoViewModel>();
             Mapper.CreateMap<Veiculo, VeiculoViewModel>();
+            Mapper.CreateMap<Empresa, EmpresaViewModel>();
 
         }
     }

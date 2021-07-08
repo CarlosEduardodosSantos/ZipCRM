@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
@@ -11,6 +12,7 @@ using VipCRM.Application.MVC.ViewModels;
 namespace VipCRM.Web.Controllers
 {
     [Authorize]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountController : Controller
     {
 
