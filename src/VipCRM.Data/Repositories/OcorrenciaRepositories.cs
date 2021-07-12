@@ -16,10 +16,10 @@ namespace VipCRM.Data.Repositories
         public Ocorrencia ObterOcorrenciaId(int id)
         {
             var sql = new StringBuilder().Append(GetSelectBasic());
-            sql.Append(" Where Ocorrencia.ocorrencia= @sid");
+            sql.Append(" Where OcorrenciaId= @sid");
             sql.Append(Environment.NewLine);
             sql.Append(GetSelectBasic());
-            sql.Append(" Where Ocorrencia.ocorrencia= @sid");
+            sql.Append(" Where OcorrenciaId= @sid");
 
             using (IDbConnection cn = Connection)
             {
@@ -47,7 +47,7 @@ namespace VipCRM.Data.Repositories
         public IEnumerable<Ocorrencia> ObterOcorrenciasPorUsuario(int usuarioId)
         {
             var sql = new StringBuilder().Append(GetSelectBasic());
-            sql.Append(" Where Ocorrencia.Ok_Data is null And Ocorrencia.enc_tecnico = @sid");
+            sql.Append(" Where Ok_Data is null And enc_tecnico = @sid");
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
@@ -57,7 +57,7 @@ namespace VipCRM.Data.Repositories
                 var ocorrencias = cn.Query<Ocorrencia>(sql.ToString(), new { sid = usuarioId });
 
                 sql = new StringBuilder().Append(GetSelectBasic());
-                sql.Append(" Where Ocorrencia.ocorrencia= @sid");
+                sql.Append(" Where OcorrenciaId= @sid");
                 foreach (var ocorrencia in ocorrencias)
                 {
                     var cliente =
@@ -104,9 +104,9 @@ namespace VipCRM.Data.Repositories
         public IEnumerable<Ocorrencia> ObterOcorrenciasPorUsuarioIniciada(int usuarioId)
         {
             var sql = new StringBuilder().Append(GetSelectBasic());
-            sql.Append(" Where Ocorrencia.Ok_Data is null");
-            sql.Append(" And Ocorrencia.DataInicioVip is not null");
-            sql.Append(" And (Ocorrencia.Age_Tecnico = @sid Or Ocorrencia.enc_tecnico = @sid)");
+            sql.Append(" Where Ok_Data is null");
+            sql.Append(" And DataInicioVip is not null");
+            sql.Append(" And (UsuarioId = @sid Or enc_tecnico = @sid)");
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
@@ -114,7 +114,7 @@ namespace VipCRM.Data.Repositories
                 var ocorrencias = cn.Query<Ocorrencia>(sql.ToString(), new { sid = usuarioId });
 
                 sql = new StringBuilder().Append(GetSelectBasic());
-                sql.Append(" Where Ocorrencia.ocorrencia= @sid");
+                sql.Append(" Where OcorrenciaId= @sid");
                 foreach (var ocorrencia in ocorrencias)
                 {
                     var cliente =
@@ -131,8 +131,8 @@ namespace VipCRM.Data.Repositories
         public bool ExisteOcorrenciasIniciadaNaoFinalizadas(int usuarioId)
         {
             var sql = new StringBuilder().Append(GetSelectBasic());
-            sql.Append(" Where Ocorrencia.DataInicioVIP is not null And Ocorrencia.Ok_Data is null");
-            sql.Append(" And (Ocorrencia.Age_Tecnico = @sid Or Ocorrencia.enc_tecnico = @sid)");
+            sql.Append(" Where DataInicioVIP is not null And Ok_Data is null");
+            sql.Append(" And (UsuarioId = @sid Or enc_tecnico = @sid)");
 
             using (IDbConnection cn = Connection)
             {
@@ -265,8 +265,8 @@ namespace VipCRM.Data.Repositories
         public IEnumerable<Ocorrencia> ObterOcorrenciasPorPesquisa(int usuarioId, string pesquisa)
         {
             var sql = new StringBuilder().Append(GetSelectBasic());
-            sql.Append(" Where Ocorrencia.Ok_Data is null And Ocorrencia.Age_Tecnico = @sid");
-            sql.Append(" And clientes.nome like @spesquisa");
+            sql.Append(" Where Ok_Data is null And Age_Tecnico = @sid");
+            sql.Append(" And Nome like @spesquisa");
 
 
             using (IDbConnection cn = Connection)
@@ -279,7 +279,7 @@ namespace VipCRM.Data.Repositories
                     new { sid = usuarioId, spesquisa = "%" + pesquisa + "%" });
 
                 sql = new StringBuilder().Append(GetSelectBasic());
-                sql.Append(" Where Ocorrencia.ocorrencia= @sid");
+                sql.Append(" Where OcorrenciaId= @sid");
                 foreach (var ocorrencia in ocorrencias)
                 {
                     var cliente =
@@ -296,9 +296,9 @@ namespace VipCRM.Data.Repositories
         public IEnumerable<Ocorrencia> ObterOcorrenciasPorUsuarioFinalizadas(int usuarioId, int dias)
         {
             var sql = new StringBuilder().Append(GetSelectBasic());
-            sql.Append(" Where datediff(day, Ocorrencia.Ok_Data, getdate()) <= @sdias And DataFimVip is not null And  Ocorrencia.Depto <> 4 And  Ocorrencia.Veiculo <> 'ADM' ");
-            sql.Append(" And (@sid = 0 Or Ocorrencia.Age_Tecnico = @sid Or Ocorrencia.enc_tecnico = @sid)");
-            sql.Append(" Order By Ocorrencia.Ok_Data desc");
+            sql.Append(" Where datediff(day, Ok_Data, getdate()) <= @sdias And DataFimVip is not null And  Depto <> 4 And  Veiculo <> 'ADM' ");
+            sql.Append(" And (@sid = 0 Or UsuarioId = @sid Or enc_tecnico = @sid)");
+            sql.Append(" Order By Ok_Data desc");
 
 
             using (IDbConnection cn = Connection)
@@ -311,7 +311,7 @@ namespace VipCRM.Data.Repositories
                     new { sid = usuarioId, sdias = dias });
 
                 sql = new StringBuilder().Append(GetSelectBasic());
-                sql.Append(" Where Ocorrencia.ocorrencia= @sid");
+                sql.Append(" Where OcorrenciaId= @sid");
                 foreach (var ocorrencia in ocorrencias)
                 {
                     var cliente =
@@ -368,7 +368,7 @@ namespace VipCRM.Data.Repositories
         public override string GetSelectBasic()
         {
             return "Select * from Vw_OcorrenciaRat";
-            return @"select
+            /*return @"select
 	                Ocorrencia.ocorrencia as OcorrenciaId,
                     RoteiroId = (Select top 1 Roteiro_2.nro From Roteiro_2 Where Ocorrencia.ocorrencia = Roteiro_2.Ocorrencia Order By Chave desc),
 					Sequencia = (Select top 1 Roteiro_2.Ordem From Roteiro_2 Where Ocorrencia.ocorrencia = Roteiro_2.Ocorrencia Order By Chave desc),
@@ -420,7 +420,7 @@ namespace VipCRM.Data.Repositories
                 left join usuarios excutando	on Ocorrencia.age_tecnico = excutando.codigo
                 left join Roteiro_1 On Ocorrencia.Age_nro = Roteiro_1.Nro
                 left join Roteiro_2 On Ocorrencia.ocorrencia = Roteiro_2.Ocorrencia
-	            Left Join frota_1 On Roteiro_1.Veiculo = frota_1.Codigo ";
+	            Left Join frota_1 On Roteiro_1.Veiculo = frota_1.Codigo ";*/
         }
 
         public override string GetUpdateBasic()
