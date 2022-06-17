@@ -16,10 +16,12 @@ namespace VipCRM.Data.Repositories
         public Ocorrencia ObterOcorrenciaId(int id)
         {
             var sql = new StringBuilder().Append(GetSelectBasic());
-            sql.Append(" Where OcorrenciaId= @sid");
+            sql.Append(" Where OcorrenciaId = @sid");
+            sql.Append(ReturnGroupby());
             sql.Append(Environment.NewLine);
             sql.Append(GetSelectBasic());
-            sql.Append(" Where OcorrenciaId= @sid");
+            sql.Append(" Where OcorrenciaId = @sid");
+            sql.Append(ReturnGroupby());
 
             using (IDbConnection cn = Connection)
             {
@@ -57,7 +59,7 @@ namespace VipCRM.Data.Repositories
                 var ocorrencias = cn.Query<Ocorrencia>(sql.ToString(), new { sid = usuarioId });
 
                 sql = new StringBuilder().Append(GetSelectBasic());
-                sql.Append(" Where OcorrenciaId= @sid");
+                sql.Append(" Where OcorrenciaId = @sid");
                 foreach (var ocorrencia in ocorrencias)
                 {
                     var cliente =
@@ -76,6 +78,7 @@ namespace VipCRM.Data.Repositories
             var sql = new StringBuilder().Append(GetSelectBasic());
             sql.Append(" Where DhRoteiro is not null And DataFimVip is null");
             sql.Append(" And UsuarioId = @sid");
+            sql.Append(ReturnGroupby());
             sql.Append(" Order By DhRoteiro");
 
             using (IDbConnection cn = Connection)
@@ -114,7 +117,7 @@ namespace VipCRM.Data.Repositories
                 var ocorrencias = cn.Query<Ocorrencia>(sql.ToString(), new { sid = usuarioId });
 
                 sql = new StringBuilder().Append(GetSelectBasic());
-                sql.Append(" Where OcorrenciaId= @sid");
+                sql.Append(" Where OcorrenciaId = @sid");
                 foreach (var ocorrencia in ocorrencias)
                 {
                     var cliente =
@@ -128,6 +131,7 @@ namespace VipCRM.Data.Repositories
             }
         }
 
+        
         public bool ExisteOcorrenciasIniciadaNaoFinalizadas(int usuarioId)
         {
             var sql = new StringBuilder().Append(GetSelectBasic());
@@ -163,6 +167,47 @@ namespace VipCRM.Data.Repositories
             {
                 cn.Open();
                 cn.Query("spIniciarOcorrencia", param, commandType: CommandType.StoredProcedure);
+                cn.Close();
+
+                return new ValidationResult();
+            }
+
+        }
+
+        public ValidationResult IncluirOcorrencia(IncluirOcorrencia incluirOcorrencia)
+        {
+            var param = new DynamicParameters();
+
+            param.Add("@Tecnico", incluirOcorrencia.UsuarioID);
+            param.Add("@Cliente", incluirOcorrencia.ClienteID);
+            param.Add("@Problema", incluirOcorrencia.Problema);
+            param.Add("@OcorrenciaGUID", incluirOcorrencia.OcorrenciaGUID);
+
+
+            using (IDbConnection cn = Connection)
+            {
+                cn.Open();
+                cn.Query("spIncluirOcorrencia_eRat", param, commandType: CommandType.StoredProcedure);
+                cn.Close();
+
+                return new ValidationResult();
+            }
+
+        }
+
+        public ValidationResult IncluirRoteiro(IncluirRoteiro incluirRoteiro)
+        {
+            var param = new DynamicParameters();
+
+            param.Add("@Tecnico_Rot", incluirRoteiro.TecnicoId);
+            param.Add("@Veiculo", incluirRoteiro.VeiculoId);
+            param.Add("@OcorrenciaGUID", incluirRoteiro.OcorrenciaGUID);
+
+
+            using (IDbConnection cn = Connection)
+            {
+                cn.Open();
+                cn.Query("spIncluirRoteiro_eRat", param, commandType: CommandType.StoredProcedure);
                 cn.Close();
 
                 return new ValidationResult();
@@ -265,7 +310,7 @@ namespace VipCRM.Data.Repositories
         public IEnumerable<Ocorrencia> ObterOcorrenciasPorPesquisa(int usuarioId, string pesquisa)
         {
             var sql = new StringBuilder().Append(GetSelectBasic());
-            sql.Append(" Where Ok_Data is null And Age_Tecnico = @sid");
+            sql.Append(" Where Ok_Data is null And enc_tecnico = @sid");
             sql.Append(" And Nome like @spesquisa");
 
 
@@ -298,6 +343,40 @@ namespace VipCRM.Data.Repositories
             var sql = new StringBuilder().Append(GetSelectBasic());
             sql.Append(" Where datediff(day, Ok_Data, getdate()) <= @sdias And DataFimVip is not null And  Depto <> 4 And  Veiculo <> 'ADM' ");
             sql.Append(" And (@sid = 0 Or UsuarioId = @sid Or enc_tecnico = @sid)");
+            sql.Append(ReturnGroupby());
+            sql.Append(" Order By Ok_Data desc");
+            
+
+            using (IDbConnection cn = Connection)
+            {
+                cn.Open();
+
+                //var multi = cn.QueryMultiple(sql.ToString(), new { sid = usuarioId });
+                //var oc = multi.Read<Ocorrencia>();
+                var ocorrencias = cn.Query<Ocorrencia>(sql.ToString(),
+                    new { sid = usuarioId, sdias = dias });
+
+                sql = new StringBuilder().Append(GetSelectBasic());
+                sql.Append(" Where OcorrenciaId= @sid");
+                foreach (var ocorrencia in ocorrencias)
+                {
+                    var cliente =
+                        cn.Query<Cliente>(sql.ToString(), new { sid = ocorrencia.OcorrenciaId }).FirstOrDefault();
+                    ocorrencia.Cliente = cliente;
+                }
+
+                cn.Close();
+
+                return ocorrencias;
+            }
+        }
+
+        public IEnumerable<Ocorrencia> ObterOcorrenciasPorOcorrenciaIDFinalizadas(int usuarioId, int ocorrenciaId)
+        {
+            var sql = new StringBuilder().Append(GetSelectBasic());
+            sql.Append(" where OcorrenciaID = @socorrenciaId And DataFimVip is not null And  Depto <> 4 And  Veiculo <> 'ADM' ");
+            sql.Append(" And (@sid = 0 Or UsuarioId = @sid Or enc_tecnico = @sid)");
+            sql.Append(ReturnGroupby());
             sql.Append(" Order By Ok_Data desc");
 
 
@@ -308,7 +387,7 @@ namespace VipCRM.Data.Repositories
                 //var multi = cn.QueryMultiple(sql.ToString(), new { sid = usuarioId });
                 //var oc = multi.Read<Ocorrencia>();
                 var ocorrencias = cn.Query<Ocorrencia>(sql.ToString(),
-                    new { sid = usuarioId, sdias = dias });
+                    new { sid = usuarioId, socorrenciaId = ocorrenciaId });
 
                 sql = new StringBuilder().Append(GetSelectBasic());
                 sql.Append(" Where OcorrenciaId= @sid");
@@ -365,62 +444,58 @@ namespace VipCRM.Data.Repositories
 
         }
 
+        public IEnumerable<Escalas> ObterEscalasPorData()
+        {
+            DateTime dt = DateTime.Today;
+            var _min = new DateTime(dt.Year, dt.Month, 1);
+            var _max = _min.AddMonths(1).AddDays(-1);
+            var min = _min.ToString("yyyy-MM-dd");
+            var max = _max.ToString("yyyy-MM-dd");
+            var sql = "select id,cast(data as date) as dataEscala,func1,func2,func3,func4,func5 from VW_SABADOS_MES where data between @smin and @smax";
+            using (IDbConnection cn = Connection)
+            {
+                cn.Open();
+
+                var escalas = cn.Query<Escalas>(sql.ToString(), new { smin = min, smax = max });
+
+                cn.Close();
+
+                return escalas;
+            }
+        }
+
+        public ValidationResult IncluirEscala(Escalas incluirEscala)
+        {
+            var param = new DynamicParameters();
+
+            param.Add("@Data", incluirEscala.DataEscala);
+            param.Add("@Func1", incluirEscala.Func1);
+            param.Add("@Func2", incluirEscala.Func2);
+            param.Add("@Func3", incluirEscala.Func3);
+            param.Add("@Func4", incluirEscala.Func4);
+            param.Add("@Func5", incluirEscala.Func5);
+
+            using (IDbConnection cn = Connection)
+            {
+                cn.Open();
+                cn.Query("spIncluirEscala_eRat", param, commandType: CommandType.StoredProcedure);
+                cn.Close();
+
+                return new ValidationResult();
+            }
+        }
+
         public override string GetSelectBasic()
         {
-            return "Select * from Vw_OcorrenciaRat";
-            /*return @"select
-	                Ocorrencia.ocorrencia as OcorrenciaId,
-                    RoteiroId = (Select top 1 Roteiro_2.nro From Roteiro_2 Where Ocorrencia.ocorrencia = Roteiro_2.Ocorrencia Order By Chave desc),
-					Sequencia = (Select top 1 Roteiro_2.Ordem From Roteiro_2 Where Ocorrencia.ocorrencia = Roteiro_2.Ocorrencia Order By Chave desc),
-	                Ocorrencia.cliente as ClienteId,
-	                Ocorrencia.Age_Tecnico as UsuarioId,
-	                Ocorrencia.data as DataOcorrencia,
-                    Ocorrencia.Ok_Nro as Rat,
-	                datediff(day, Ocorrencia.data, getdate()) as QuantidadeDias,
-	                Ocorrencia.data as DhOcorrencia,
-	                Ocorrencia.data_roteiro as DhRoteiro,
-                    Ocorrencia.Contato as Contato,
-	                case
-		                when (isnull(Ocorrencia.ok_data, 0) > 0)		then 3  
-		                when (isnull(Ocorrencia.age_tecnico, 0) > 0)	and (isnull(ok_data, 0) = 0) then 2 
-		                else 0
-	                end as StatusId,
-	                case
-		                when Ocorrencia.prioridade = 'alta'			then 0
-		                when Ocorrencia.prioridade = 'media'		then 1
-		                else 2
-	                end as Prioridade,
-	                Ocorrencia.problema as Comentario,
-	                Ocorrencia.problema_desc as Problema,
-                    Ocorrencia.Solucao_desc as Solucao,
-                    Ocorrencia.DataInicioVIP,
-	                Ocorrencia.DataFimVIP,
+            return "Select * from Vw_OcorrenciaRat";            
+        }
 
-	                --clientes
-	                clientes.cnpj as Cnpj,
-	                clientes.nome as Nome,
-	                clientes.razão as RazaoSocial,
-	                clientes.cep as Cep,
-	                clientes.endereço as Endereco,
-	                clientes.end_num as Numero,
-	                clientes.bairro as Bairro,
-	                clientes.cidade as Cidade,
-	                clientes.estado as Uf,
-                    Isnull(clientes.DDD,0) + Isnull(clientes.Fone1,0) as Fone,
-	                --usuario
-
-	                excutando.nome	as NomeUsuario,
-	                excutando.nome as [User],
-	                excutando.senha as [Password],
-
-                    frota_1.Nome as Veiculo
-                from ocorrencia_vip Ocorrencia
-                left join clientes on clientes.codigo = Ocorrencia.cliente
-                left join usuarios emcaminhado	on Ocorrencia.enc_tecnico = emcaminhado.codigo
-                left join usuarios excutando	on Ocorrencia.age_tecnico = excutando.codigo
-                left join Roteiro_1 On Ocorrencia.Age_nro = Roteiro_1.Nro
-                left join Roteiro_2 On Ocorrencia.ocorrencia = Roteiro_2.Ocorrencia
-	            Left Join frota_1 On Roteiro_1.Veiculo = frota_1.Codigo ";*/
+        public string ReturnGroupby()
+        {
+            return " group by Ocorrenciaid,Roteiroid,sequencia,clienteid,usuarioid,dataocorrencia,rat," +
+                "quantidadedias,dhocorrencia,dhroteiro,contato,statusid,prioridade,comentario,problema," +
+                "solucao,DataInicioVIP,datafimvip,ok_data,enc_tecnico,depto,cnpj,nome,razaosocial,cep," +
+                "endereco,numero,bairro,cidade,uf,fone,nomeusuario,[user],[password],veiculo";
         }
 
         public override string GetUpdateBasic()
@@ -432,5 +507,6 @@ namespace VipCRM.Data.Repositories
         {
             throw new NotImplementedException();
         }
+                
     }
 }

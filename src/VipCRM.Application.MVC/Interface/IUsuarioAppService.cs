@@ -11,5 +11,9 @@ namespace VipCRM.Application.MVC.Interface
         void ModificaUsuario(UsuarioImagemViewModel usuarioImagemView);
         UsuarioImagemViewModel ObterImagemUduarioId(string usuarioId);
         IEnumerable<UsuarioViewModel> ObterUsuarios();
+        IEnumerable<VeiculoViewModel> ObterVeiculos();
+        FolhaPgtoViewModel ObterFolhaPgto(int usuario, string mes, string ano);
+
+
     }
 }

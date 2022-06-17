@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using VipCRM.Application.MVC.Interface;
@@ -6,7 +7,7 @@ using VipCRM.Application.MVC.ViewModels;
 
 namespace VipCRM.Web.Controllers
 {
-    
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/cliente")]
     public class ClienteApiController : ApiController
     {
@@ -32,5 +33,32 @@ namespace VipCRM.Web.Controllers
 
             return result;
         }
+
+        [HttpGet]
+        [Route("clientes/{nome}")]
+        public List<ClienteViewModel> ObterCliente(string nome)
+        {
+            var response = _clienteAppService.ObterPorNome(nome).ToList();
+            return response.ToList();
+           
+        }
+
+        [HttpGet]
+        [Route("ranking/{dias}")]
+        public List<RankingClientesViewModel> ObterRankingClientes(int dias)
+        {
+            var response = _clienteAppService.ObterRankingClientes(dias).ToList();
+            return response.ToList();
+        }
+
+        [HttpGet]
+        [Route("carencia/{dias}")]
+        public List<RankingClientesViewModel> ObterCarenciaClientes(int dias)
+        {
+            var response = _clienteAppService.ObterCarenciaClientes(dias).ToList();
+            return response.ToList();
+        }
     }
 }
+
+

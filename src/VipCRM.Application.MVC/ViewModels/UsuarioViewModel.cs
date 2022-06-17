@@ -21,5 +21,6 @@ namespace VipCRM.Application.MVC.ViewModels
         public int PerfilId { get; set; }
         public string Assinatura { get; set; }
         public string Imagem { get; set; }
+        public int isAdmin { get; set; }
     }
 }

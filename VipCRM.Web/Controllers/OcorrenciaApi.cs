@@ -96,6 +96,68 @@ namespace VipCRM.Web.Controllers
                 return StatusCode(HttpStatusCode.BadRequest);
             }
         }
+        [HttpPost]
+        [Route("incluir")]
+        public IHttpActionResult IncluirOcorrencia(IncluirOcorrenciaViewModels incluirOcorrenciaView)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                _appServer.IncluirOcorrencia(incluirOcorrenciaView);
+
+                return StatusCode(HttpStatusCode.OK);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(HttpStatusCode.BadRequest);
+            }
+        }
+        [HttpPost]
+        [Route("roteiro")]
+        public IHttpActionResult IncluirRoteiro(IncluirRoteiroViewModel incluirRoteiroView)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                _appServer.IncluirRoteiro(incluirRoteiroView);
+
+                return StatusCode(HttpStatusCode.OK);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(HttpStatusCode.BadRequest);
+            }
+        }
+        // Escalas de Sabado
+        [HttpGet]
+        [Route("escalas")]
+        public List<EscalaViewModel> ObterEscalasPorData()
+        {
+            var response = _appServer.ObterEscalasPorData();
+            return response.ToList();
+        }
+        [HttpPost]
+        [Route("incluirEscala")]
+        public IHttpActionResult IncluirEscala(EscalaViewModel incluirEscalaView)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                _appServer.IncluirEscala(incluirEscalaView);
+
+                return StatusCode(HttpStatusCode.OK);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(HttpStatusCode.BadRequest);
+            }
+        }
         // GET api/<controller>
         public IEnumerable<string> Get()
         {

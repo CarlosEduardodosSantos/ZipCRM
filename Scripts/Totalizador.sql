@@ -1,5 +1,4 @@
-USE [Vip_Order]
-GO
+
 
 /****** Object:  View [dbo].[vw_dash_OcorrenciaTotalizador]    Script Date: 06/02/2020 17:32:39 ******/
 SET ANSI_NULLS ON
@@ -12,7 +11,7 @@ GO
 --select * from [vw_dash_OcorrenciaTotalizador]
 
 
-ALTER View [dbo].[vw_dash_OcorrenciaTotalizador]
+create View [dbo].[vw_dash_OcorrenciaTotalizador]
 As
 Select 
 	OcorrenciasRoteiro = (Select count(1) from Ocorrencia_vip  Where Age_Data = Convert(Char(10), GetDate(), 102) And Age_nro is not null),

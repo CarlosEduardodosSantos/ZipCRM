@@ -94,7 +94,11 @@
     <Compile Include="ViewModels\DemandaOcorrencia.cs" />
     <Compile Include="ViewModels\DeslocamentoViewModel.cs" />
     <Compile Include="ViewModels\EmpresaViewModel.cs" />
+    <Compile Include="ViewModels\EscalaViewModel.cs" />
     <Compile Include="ViewModels\FinalizaOcorrenciaViewModel.cs" />
+    <Compile Include="ViewModels\FolhaPgtoViewModel.cs" />
+    <Compile Include="ViewModels\IncluirOcorrenciaViewModels.cs" />
+    <Compile Include="ViewModels\IncluirRoteiroViewModel.cs" />
     <Compile Include="ViewModels\IniciaOcorrenciaViewModel.cs" />
     <Compile Include="ViewModels\LocalizacaoViewModel.cs" />
     <Compile Include="ViewModels\LocalizarTipoOperacaoEnum.cs" />
@@ -110,6 +114,7 @@
     <Compile Include="ViewModels\OrcamentoRankingViewModel.cs" />
     <Compile Include="ViewModels\OrcamentoTotalizarViewModel.cs" />
     <Compile Include="ViewModels\OrcamentoViewModel.cs" />
+    <Compile Include="ViewModels\RankingClientesViewModel.cs" />
     <Compile Include="ViewModels\RequisicaoViewModel.cs" />
     <Compile Include="ViewModels\ResultOcorrenciaProgramacaoViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModels.cs" />

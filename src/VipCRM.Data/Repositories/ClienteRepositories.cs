@@ -28,7 +28,7 @@ namespace VipCRM.Data.Repositories
         public IEnumerable<Cliente> ObterPorNome(string nome)
         {
             var sql = new StringBuilder().Append(GetSelectBasic());
-            sql.Append(" Where nome like @snome ");
+            sql.Append(" Where nome like @snome and Classificacao = 'A' order by nome");
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
@@ -43,7 +43,7 @@ namespace VipCRM.Data.Repositories
         public IEnumerable<Cliente> ObterBoqueados()
         {
             var sql = new StringBuilder().Append(GetSelectBasic());
-            sql.Append(" Where Sit_Contrato = 'B'");
+            sql.Append(" Where Sit_Contrato = 'B'");  //Where Sit_Contrato = 'B' where Classificacao = 'I'
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
@@ -52,6 +52,32 @@ namespace VipCRM.Data.Repositories
 
                 return clientes;
 
+            }
+        }
+
+        public IEnumerable<RankingClientes> ObterRankingClientes(int dias)
+        {
+            var sql = new StringBuilder().Append("select * from fn_RankingDias(@sdias)");
+            using (IDbConnection cn = Connection)
+            {
+                cn.Open();
+                var ranking = cn.Query<RankingClientes>(sql.ToString(), new { sdias = dias });
+                cn.Close();
+
+                return ranking;
+            }                
+        }
+
+        public IEnumerable<RankingClientes> ObterCarenciaClientes(int dias)
+        {
+            var sql = new StringBuilder().Append("select * from fn_carenciaClientes(@sdias)");
+            using (IDbConnection cn = Connection)
+            {
+                cn.Open();
+                var ranking = cn.Query<RankingClientes>(sql.ToString(), new { sdias = dias });
+                cn.Close();
+
+                return ranking;
             }
         }
 

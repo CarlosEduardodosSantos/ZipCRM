@@ -43,7 +43,7 @@ namespace VipCRM.Application.MVC
                 Mapper.Map<IEnumerable<Ocorrencia>, IEnumerable<OcorrenciaViewModel>>(
                     _ocorrenciaServices.ObterOcorrenciasPorUsuarioIniciada(usuarioId));
         }
-
+                
         public bool ExisteOcorrenciasIniciadaNaoFinalizadas(int usuarioId)
         {
             return _ocorrenciaServices.ExisteOcorrenciasIniciadaNaoFinalizadas(usuarioId);
@@ -55,6 +55,12 @@ namespace VipCRM.Application.MVC
             return Mapper.Map<ValidationResult, ValidationAppResult>(_ocorrenciaServices.IniciarOcorrencia(iniciaOcorrencia));
         }
 
+        public ValidationAppResult IncluirOcorrencia(IncluirOcorrenciaViewModels incluirOcorrenciaView)
+        {
+            var incluirOcorrencia = Mapper.Map<IncluirOcorrenciaViewModels, IncluirOcorrencia>(incluirOcorrenciaView);
+            return Mapper.Map<ValidationResult, ValidationAppResult>(_ocorrenciaServices.IncluirOcorrencia(incluirOcorrencia));
+        }
+
         public ValidationAppResult FinalizaOcorrencia(FinalizaOcorrenciaViewModel finalizaOcorrenciaViewModel)
         {
             var finalizaOcorrencia = Mapper.Map<FinalizaOcorrenciaViewModel, FinalizaOcorrencia>(finalizaOcorrenciaViewModel);
@@ -62,7 +68,11 @@ namespace VipCRM.Application.MVC
             return Mapper.Map<ValidationResult, ValidationAppResult>(_ocorrenciaServices.FinalizaOcorrencia(finalizaOcorrencia));
         }
 
-
+        public ValidationAppResult IncluirRoteiro(IncluirRoteiroViewModel incluirRoteiroView)
+        {
+            var incluirRoteiro = Mapper.Map<IncluirRoteiroViewModel, IncluirRoteiro>(incluirRoteiroView);
+            return Mapper.Map<ValidationResult, ValidationAppResult>(_ocorrenciaServices.IncluirRoteiro(incluirRoteiro));
+        }
 
         public IEnumerable<OcorrenciaViewModel> ObterOcorrenciasPorPesquisa(int usuarioId, string pesquisa)
         {
@@ -79,6 +89,13 @@ namespace VipCRM.Application.MVC
                     _ocorrenciaServices.ObterOcorrenciasPorUsuarioFinalizadas(usuarioId, dias));
         }
 
+        public IEnumerable<OcorrenciaViewModel> ObterOcorrenciasPorOcorrenciaIDFinalizadas(int usuarioId, int ocorrenciaId)
+        {
+            return
+                Mapper.Map<IEnumerable<Ocorrencia>, IEnumerable<OcorrenciaViewModel>>(
+                    _ocorrenciaServices.ObterOcorrenciasPorOcorrenciaIDFinalizadas(usuarioId, ocorrenciaId));
+        }
+
         public IEnumerable<RequisicaoViewModel> ObterResqRequisicoesPorCliente(int usuarioId, int clienteId)
         {
             return
@@ -89,6 +106,18 @@ namespace VipCRM.Application.MVC
         public string ObterFilePdf(int ocorrenciaId)
         {
             return _ocorrenciaServices.ObterFilePdf(ocorrenciaId);
+        }
+
+        public IEnumerable<EscalaViewModel> ObterEscalasPorData()
+        {
+            return Mapper.Map<IEnumerable<Escalas>, IEnumerable<EscalaViewModel>>(
+                _ocorrenciaServices.ObterEscalasPorData());
+        }
+
+        public ValidationAppResult IncluirEscala(EscalaViewModel incluirEscalaView)
+        {
+            var incluirEscala = Mapper.Map<EscalaViewModel, Escalas>(incluirEscalaView);
+            return Mapper.Map<ValidationResult, ValidationAppResult>(_ocorrenciaServices.IncluirEscala(incluirEscala));
         }
     }
 }

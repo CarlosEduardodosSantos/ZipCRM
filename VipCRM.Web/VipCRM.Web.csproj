@@ -669,6 +669,7 @@
     <Content Include="Views\DashboardAdmin\_Sabados.cshtml" />
     <Content Include="Views\DashboardAdmin\_Chart.cshtml" />
     <Content Include="Views\DashboardAdmin\_OcorrenciasDias.cshtml" />
+    <Content Include="Views\Ocorrencia\PesquisaOcorrenciaId.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

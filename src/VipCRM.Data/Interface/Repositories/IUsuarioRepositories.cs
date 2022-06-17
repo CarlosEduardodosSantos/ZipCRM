@@ -11,5 +11,7 @@ namespace VipCRM.Data.Interface.Repositories
         void ModificaUsuario(UsuarioImagem usuarioImagem);
         UsuarioImagem ObterImagemUduarioId(string usuarioId);
         IEnumerable<Usuario> ObterUsuarios();
+        IEnumerable<Veiculo> ObterVeiculos();
+        FolhaPgto ObterFolhaPgto(int usuario, string mes, string ano);
     }
 }

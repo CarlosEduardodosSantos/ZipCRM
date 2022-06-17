@@ -40,6 +40,13 @@ namespace VipCRM.Web.Controllers
             int usuarioId = int.Parse(((UserIdentity)User.Identity).UsuarioId);
             return View(_appServer.ObterOcorrenciasPorPesquisa(usuarioId, pesquisa));
 
+        }
+
+        public ActionResult PesquisaOcorrenciaId(string pesquisa)
+        {
+            int ocorrenciaId = 0;
+            ocorrenciaId = int.Parse(pesquisa);
+            return View(_appServer.ObterOcorrenciasPorOcorrenciaIDFinalizadas(0, ocorrenciaId));
 
         }
 
@@ -64,6 +71,10 @@ namespace VipCRM.Web.Controllers
         {
             return View(_appServer.ObterOcorrenciasPorUsuarioFinalizadas(0, dias));
         }
+        //public ActionResult FinalizadasOcorrenciaIdAdmin(int ocorrenciaId)
+        //{
+        //    return View(_appServer.ObterOcorrenciasPorOcorrenciaIDFinalizadas(0, ocorrenciaId));
+        //}
         public ActionResult Details(int id)
         {
             var model = _appServer.ObterOcorrenciaId(id);

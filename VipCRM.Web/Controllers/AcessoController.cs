@@ -62,5 +62,28 @@ namespace VipCRM.Web.Controllers
 
             return users;
         }
+        [HttpGet]
+        [Route("usuarios")]
+        public List<UsuarioViewModel> ObterUsuarios()
+        {
+            var users = _usuarioService.ObterUsuarios().ToList();
+            return users.ToList();
+
+        }
+        [HttpGet]
+        [Route("veiculos")]
+        public List<VeiculoViewModel> ObterVeiculos()
+        {
+            var veiculos = _usuarioService.ObterVeiculos().ToList();
+            return veiculos.ToList();
+
+        }
+        [HttpGet]
+        [Route("folha/{usuario}/{mes}/{ano}")]
+        public FolhaPgtoViewModel ObterFolhaPgto(int usuario, string mes, string ano)
+        {
+            var folha = _usuarioService.ObterFolhaPgto(usuario, mes, ano);
+            return folha;
+        }
     }
 }

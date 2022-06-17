@@ -139,6 +139,23 @@
                                             <li><a href="@Url.Action("FinalizadasAdmin", "Ocorrencia", new {dias = 10})"><i class="fa fa-circle-o"></i> Ultimo 10 dias</a></li>
                                             <li><a href="@Url.Action("FinalizadasAdmin", "Ocorrencia", new {dias = 20})"><i class="fa fa-circle-o"></i> Ultimo 20 dias</a></li>
                                             <li><a href="@Url.Action("FinalizadasAdmin", "Ocorrencia", new {dias = 30})"><i class="fa fa-circle-o"></i> Ultimo 30 dias</a></li>
+                                            <li class="treeview">
+                                                <a href="#">
+                                                    <i class="fa fa-check-square-o"></i> <span> Pesquisar Ocorrências</span>
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </a>
+                                                <ul class="treeview-menu">
+                                                    @using (Html.BeginForm("PesquisaOcorrenciaId", "Ocorrencia", new { pesquisa = "" }, FormMethod.Get))
+                                                    {
+                                                        <div class="input-group">
+                                                            <input type="text" id="pesquisa" name="pesquisa" class="form-control" placeholder="Pesquisar..." />
+                                                            <span class="input-group-btn">
+                                                                <button type='submit' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                                                            </span>
+                                                        </div>
+                                                    }
+                                                </ul>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>

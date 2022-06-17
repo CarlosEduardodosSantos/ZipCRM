@@ -47,7 +47,11 @@
     <Compile Include="Domain\Entites\Empresa.cs" />
     <Compile Include="Domain\Entites\EmprestimoSituacao.cs" />
     <Compile Include="Domain\Entites\EmprestimoSolicitacao.cs" />
+    <Compile Include="Domain\Entites\Escalas.cs" />
     <Compile Include="Domain\Entites\FinalizaOcorrencia.cs" />
+    <Compile Include="Domain\Entites\FolhaPgto.cs" />
+    <Compile Include="Domain\Entites\IncluirOcorrencia.cs" />
+    <Compile Include="Domain\Entites\IncluirRoteiro.cs" />
     <Compile Include="Domain\Entites\IniciaOcorrencia.cs" />
     <Compile Include="Domain\Entites\Localizacao.cs" />
     <Compile Include="Domain\Entites\Ocorrencia.cs" />
@@ -62,6 +66,7 @@
     <Compile Include="Domain\Entites\OrcamentoEquipe.cs" />
     <Compile Include="Domain\Entites\OrcamentoRanking.cs" />
     <Compile Include="Domain\Entites\OrcamentoTotalizar.cs" />
+    <Compile Include="Domain\Entites\RankingClientes.cs" />
     <Compile Include="Domain\Entites\Requisicao.cs" />
     <Compile Include="Domain\Entites\ResultOcorrenciaProgramacao.cs" />
     <Compile Include="Domain\Entites\Role.cs" />

@@ -1,7 +1,5 @@
-USE [Vip_Order]
-GO
 
-/****** Object:  View [dbo].[vw_dash_monitor_OcorrenciaConcluidasMes]    Script Date: 06/03/2020 14:03:20 ******/
+/****** Object:  View [dbo].[vw_dash_monitor_OcorrenciaConcluidasMes]    Script Date: 15/12/2021 15:39:20 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,16 +7,14 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-
-
-
 CREATE View [dbo].[vw_dash_monitor_OcorrenciaConcluidasMes]
 as
 
 	Select 
 		UsuarioId, UsuarioNome,
-		Sum(QtdeConcluida30) as QtdeConcluida30,
-		--CASE WHEN USUARIOID = 63 THEN 0 Else Sum(QtdeConcluida30) end as QtdeConcluida30,
+		Sum(QtdeConcluidaInt30) as QtdeConcluidaInt30,
+		Sum(QtdeConcluidaExt30) as QtdeConcluidaExt30,
+		Sum(QtdeConcluidaInt30)+(Sum(QtdeConcluidaExt30)*2) as Qtdetotal,
 		Max(DataUltAtualizacao) as DataUltAtualizacao
 		From (
 
@@ -26,19 +22,39 @@ as
 				select 
 					Usuarios.Codigo as UsuarioId, 
 					Usuarios.Nome as UsuarioNome, 
-					Count(1) as QtdeConcluida30,
-					Max(data) as DataUltAtualizacao
+					Count(1) as QtdeConcluidaInt30,
+					0 as QtdeConcluidaExt30,
+					Max(OK_data) as DataUltAtualizacao
 				from Ocorrencia_vip
 				Inner Join Usuarios On Ocorrencia_vip.OK_TECNICO = Usuarios.Nome 
 				where AGE_data between DATEADD(D,1-DAY(GETDATE()),CONVERT(CHAR(8),GETDATE(),112)) and DATEADD(D,(SELECT DBO.FN_DIASDOMES (GETDATE()))-DAY(GETDATE()),CONVERT(CHAR(8),GETDATE(),112)) and
 				OK_data between DATEADD(D,1-DAY(GETDATE()),CONVERT(CHAR(8),GETDATE(),112)) and DATEADD(D,(SELECT DBO.FN_DIASDOMES (GETDATE()))-DAY(GETDATE()),CONVERT(CHAR(8),GETDATE(),112)) AND 
-				OK_TECNICO IS NOT NULL --and Usuarios.Codigo <> 63
-				Group By Usuarios.Codigo, Usuarios.Nome,Ocorrencia_vip.Veiculo
-				/*where AGE_data between '2019-11-01' and '2019-11-30' and
-				OK_data between '2019-11-01' and '2019-11-30' AND */
+				OK_TECNICO IS NOT NULL  and
+				(veiculo is null or Veiculo = 'ADM')
 
+				Group By Usuarios.Codigo, Usuarios.Nome
+				
+
+				union
+
+				select 
+					Usuarios.Codigo as UsuarioId, 
+					Usuarios.Nome as UsuarioNome, 
+					0 as QtdeConcluida30,
+					Count(1) as QtdeConcluidaExt30,
+					Max(OK_data) as DataUltAtualizacao
+				from Ocorrencia_vip
+				Inner Join Usuarios On Ocorrencia_vip.OK_TECNICO = Usuarios.Nome 
+				where AGE_data	>= DATEADD(D,1-DAY(GETDATE()),CONVERT(CHAR(8),GETDATE(),112)) and AGE_data <= DATEADD(D,(SELECT DBO.FN_DIASDOMES (GETDATE()))-DAY(GETDATE()),CONVERT(CHAR(8),GETDATE(),112)) and
+				OK_data			>= DATEADD(D,1-DAY(GETDATE()),CONVERT(CHAR(8),GETDATE(),112)) and CONVERT(DATETIME, FLOOR(CONVERT(FLOAT(24), ok_data))) <= DATEADD(D,(SELECT DBO.FN_DIASDOMES (GETDATE()))-DAY(GETDATE()),CONVERT(CHAR(8),GETDATE(),112)) AND 
+				OK_TECNICO is not null and
+				veiculo is not null and
+				veiculo <> 'ADM'
+				Group By Usuarios.Codigo, Usuarios.Nome
+				
 	) as tmp
 	Group By UsuarioId, UsuarioNome
+
 
 GO
 

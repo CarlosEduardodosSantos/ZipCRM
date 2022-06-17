@@ -8,5 +8,7 @@ namespace VipCRM.Application.MVC.Interface
         ClienteViewModel ObterPorId(int id);
         IEnumerable<ClienteViewModel> ObterPorNome(string nome);
         IEnumerable<ClienteViewModel> ObterBoqueados();
+        IEnumerable<RankingClientesViewModel> ObterRankingClientes(int dias);
+        IEnumerable<RankingClientesViewModel> ObterCarenciaClientes(int dias);
     }
 }

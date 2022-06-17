@@ -10,7 +10,7 @@ GO
 
 
 
-ALTER View [dbo].[vw_dash_monitor_OcorrenciaConcluidasMes]
+Create View [dbo].[vw_dash_monitor_OcorrenciaConcluidasMes]
 as
 
 	Select 

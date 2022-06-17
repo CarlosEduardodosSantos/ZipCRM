@@ -1,5 +1,3 @@
-USE [Vip_Order]
-GO
 
 /****** Object:  View [dbo].[vw_dash_monitor_OcorrenciaConcluidasMesAnterior]    Script Date: 06/03/2020 14:08:42 ******/
 SET ANSI_NULLS ON
@@ -11,7 +9,7 @@ GO
 
 
 
-ALTER View [dbo].[vw_dash_monitor_OcorrenciaConcluidasMesAnterior]
+create View [dbo].[vw_dash_monitor_OcorrenciaConcluidasMesAnterior]
 as
 
 	Select 

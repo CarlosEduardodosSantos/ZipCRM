@@ -50,5 +50,16 @@ namespace VipCRM.Application.MVC
             return Mapper.Map<IEnumerable<Usuario>, IEnumerable<UsuarioViewModel>>(
                 _usuarioRepositories.ObterUsuarios());
         }
+
+        public IEnumerable<VeiculoViewModel> ObterVeiculos()
+        {
+            return Mapper.Map<IEnumerable<Veiculo>, IEnumerable<VeiculoViewModel>>(
+                _usuarioRepositories.ObterVeiculos());
+        }
+
+        public FolhaPgtoViewModel ObterFolhaPgto(int usuario, string mes, string ano)
+        {
+            return Mapper.Map<FolhaPgto, FolhaPgtoViewModel>(_usuarioRepositories.ObterFolhaPgto(usuario, mes, ano));
+        }
     }
 }

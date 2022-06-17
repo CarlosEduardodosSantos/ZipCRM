@@ -32,5 +32,16 @@ namespace VipCRM.Application.MVC
             return
                 Mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteViewModel>>(_clienteRepositories.ObterBoqueados());
         }
+
+        public IEnumerable<RankingClientesViewModel> ObterRankingClientes(int dias)
+        {
+            return
+                Mapper.Map<IEnumerable<RankingClientes>, IEnumerable<RankingClientesViewModel>>(_clienteRepositories.ObterRankingClientes(dias));
+        }
+        public IEnumerable<RankingClientesViewModel> ObterCarenciaClientes(int dias)
+        {
+            return
+                Mapper.Map<IEnumerable<RankingClientes>, IEnumerable<RankingClientesViewModel>>(_clienteRepositories.ObterCarenciaClientes(dias));
+        }
     }
 }

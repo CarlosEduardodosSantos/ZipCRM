@@ -27,8 +27,9 @@ namespace VipCRM.Data.Repositories
 
         public Usuario AutenticaUsuario(string nome, string senha)
         {
-            var sql = new StringBuilder().Append(GetSelectBasic());
-            sql.Append(" Where nome = @snome And Senha = @ssenha");
+            //var sql = new StringBuilder().Append(GetSelectBasic());
+            //sql.Append(" Where nome = @snome And Senha = @ssenha");
+            var sql = "select * from dbo.FN_VALIDAUSER_ERAT(@snome,@ssenha)";
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
@@ -95,18 +96,62 @@ namespace VipCRM.Data.Repositories
             }
         }
 
-        public IEnumerable<Usuario> ObterUsuarios()
+        public IEnumerable<Veiculo> ObterVeiculos()
         {
-            var sql = "select * from usuarios Where Ativo = 0 And Perfil > 0";
+            var sql = "select * from Vw_Veiculos_eRat";
             using (IDbConnection cn = Connection)
             {
                 cn.Open();
-                var usuarios = cn.Query<Usuario>(sql);
+                var veiculos = cn.Query<Veiculo>(sql.ToString());
+                cn.Close();
+
+                return veiculos;
+            }
+        }
+
+        public IEnumerable<Usuario> ObterUsuarios()
+        {
+            //var sql = "select * from usuarios Where Ativo = 0 And Perfil > 0";
+            var sql = new StringBuilder().Append(GetSelectBasic());
+            sql.Append(" Where Ativo = 0 And Perfil > 0 ");
+            using (IDbConnection cn = Connection)
+            {
+                cn.Open();
+                var usuarios = cn.Query<Usuario>(sql.ToString());
                 cn.Close();
 
                 return usuarios;
             }
         }
+
+        public FolhaPgto ObterFolhaPgto(int usuario, string mes, string ano)
+        {
+            var competencia = mes + "/" + ano;
+            var sql = "select * from dbo.FN_FOLHADEPGTO(@suser,@scomp)";
+            using (IDbConnection cn = Connection)
+            {
+                cn.Open();
+                var folha = cn.Query<FolhaPgto>(sql.ToString(), new { suser = usuario, scomp = competencia }).FirstOrDefault();
+                cn.Close();
+                return folha;
+            } 
+                        
+        }
+
+        //public IEnumerable<Usuario> ObterAllUsuarios()
+        //{
+        //    //var sql = "select * from usuarios Where Ativo = 0 And Perfil > 0";
+        //    var sql = new StringBuilder().Append(GetSelectBasic());
+        //    sql.Append(" Where Ativo = 0 And Perfil > 0 ");
+        //    using (IDbConnection cn = Connection)
+        //    {
+        //        cn.Open();
+        //        var usuarios = cn.Query<Usuario>(sql.ToString());
+        //        cn.Close();
+
+        //        return usuarios;
+        //    }
+        //}
 
         public override string GetSelectBasic()
         {
