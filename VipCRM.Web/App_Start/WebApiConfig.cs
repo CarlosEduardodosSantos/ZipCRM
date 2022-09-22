@@ -15,7 +15,6 @@ namespace VipCRM.Web
             // New code
             config.EnableCors();
 
-
             config.Formatters.JsonFormatter.SupportedMediaTypes
                 .Add(new MediaTypeHeaderValue("text/html"));
 
@@ -25,11 +24,7 @@ namespace VipCRM.Web
                 "DefaultApi",
                 "api/{controller}/{id}",
                 new { id = RouteParameter.Optional }
-            );
-
-
-
-            
+            );            
 
             /*
             configuration.Routes.MapHttpRoute(

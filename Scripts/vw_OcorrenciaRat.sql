@@ -28,8 +28,8 @@ select
 		                else 2
 	                end as Prioridade,
 	                Ocorrencia.problema as Comentario,
-	                Ocorrencia.problema_desc as Problema,
-                    Ocorrencia.Solucao_desc as Solucao,
+	                CAST(Ocorrencia.problema_desc as varchar(MAX)) as Problema,
+                    CAST(Ocorrencia.Solucao_desc as varchar(MAX)) as Solucao,
                     Ocorrencia.DataInicioVIP,
 	                Ocorrencia.DataFimVIP,
 					Ocorrencia.Ok_Data,
